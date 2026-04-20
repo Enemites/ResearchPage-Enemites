@@ -12,7 +12,7 @@
   <meta property="og:type" content="article" />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="https://novaxarena.tech/assets/favicon.png" />
+  <link rel="icon" type="image/png" href="../src/favicon.png" />
 
   <!-- Styles -->
   <link rel="stylesheet" href="../css/styles.css" />
@@ -23,7 +23,9 @@
   <nav class="nav scrolled" id="nav">
     <div class="nav__inner">
       <a href="../" class="nav__logo">
-        <div class="nav__logo-icon">N</div>
+        <div class="nav__logo-icon">
+          <img src="../src/favicon.png" alt="NovaX Logo" />
+        </div>
         <span class="nav__logo-text">NovaX</span>
         <span class="nav__badge">Research</span>
       </a>
@@ -68,9 +70,9 @@
         </div>
 
         <h1 class="paper-page__title">
-          AI Cognitive Replication:<br>
-          <span class="gradient-text">Technical Specification (Citation-Mapped)</span>
+          AI Cognitive Replication<br>
         </h1>
+        <p class="paper-page__author">Created by Nafis</p>
 
         <div class="paper-page__meta">
           <div class="paper-page__meta-item">
@@ -401,6 +403,31 @@
   </footer>
 
   <!-- Scripts -->
+  <script>
+    (function addMissingReferenceLinks() {
+      var referenceRows = document.querySelectorAll('tr[id^="ref"]');
+      referenceRows.forEach(function (row) {
+        var citationCell = row.querySelector("td:nth-child(2)");
+        if (!citationCell) return;
+
+        var hasExternalLink = citationCell.querySelector('a[href^="http"]');
+        if (hasExternalLink) return;
+
+        var citationText = citationCell.textContent.replace(/\s+/g, " ").trim();
+        var scholarUrl = "https://scholar.google.com/scholar?q=" + encodeURIComponent(citationText);
+
+        var spacer = document.createTextNode(" ");
+        var sourceLink = document.createElement("a");
+        sourceLink.href = scholarUrl;
+        sourceLink.target = "_blank";
+        sourceLink.rel = "noopener noreferrer";
+        sourceLink.textContent = "Find source";
+
+        citationCell.appendChild(spacer);
+        citationCell.appendChild(sourceLink);
+      });
+    })();
+  </script>
   <script src="../js/main.js"></script>
 
 </body>

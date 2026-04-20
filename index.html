@@ -14,7 +14,7 @@
   <meta property="og:url" content="https://research.novax.tech" />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="https://novaxarena.tech/assets/favicon.png" />
+  <link rel="icon" type="image/png" href="src/favicon.png" />
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/styles.css" />
@@ -25,7 +25,9 @@
   <nav class="nav" id="nav">
     <div class="nav__inner">
       <a href="/" class="nav__logo">
-        <div class="nav__logo-icon">N</div>
+        <div class="nav__logo-icon">
+          <img src="src/favicon.png" alt="NovaX Logo" />
+        </div>
         <span class="nav__logo-text">NovaX</span>
         <span class="nav__badge">Research</span>
       </a>
@@ -87,10 +89,6 @@
       </div>
     </div>
 
-    <div class="hero__scroll-indicator">
-      <span>Scroll</span>
-      <div class="hero__scroll-line"></div>
-    </div>
   </section>
 
   <!-- ===== Stats Section ===== -->
@@ -146,7 +144,8 @@
             <span class="paper-card__category-dot"></span>
             Technical Specification
           </div>
-          <h3 class="paper-card__title">AI Cognitive Replication: Technical Specification (Citation-Mapped)</h3>
+          <h3 class="paper-card__title">AI Cognitive Replication</h3>
+          <p class="paper-card__author">Created by Nafis</p>
           <p class="paper-card__abstract">
             A comprehensive citation-mapped specification exploring current AI capabilities in cognitive replication, brain functions not yet replicated, neuroscientific gaps, and the research directions needed to close the gap between artificial and biological intelligence.
           </p>
@@ -247,61 +246,70 @@
 
         <!-- Benchmark 1: Cognitive Performance -->
         <div class="benchmark-card animate-on-scroll" id="benchmark-cognitive">
-          <div class="benchmark-card__icon benchmark-card__icon--brain">🧠</div>
+          <div class="benchmark-card__header">
+            <div class="benchmark-card__icon benchmark-card__icon--brain">01</div>
+            <span class="benchmark-card__label">Core Metric</span>
+          </div>
           <h3 class="benchmark-card__title">Cognitive Performance Index</h3>
           <p class="benchmark-card__description">
             Composite score measuring problem-solving speed, pattern recognition accuracy, and multi-step reasoning across standardized cognitive tasks.
           </p>
           <div class="benchmark-card__metric">
-            <span class="benchmark-card__metric-value gradient-text">87.3</span>
-            <span class="benchmark-card__metric-unit">/ 100 avg score</span>
+            <span class="benchmark-card__metric-value">--</span>
+            <span class="benchmark-card__metric-unit">Data not available</span>
           </div>
           <div class="benchmark-card__bar">
-            <div class="benchmark-card__bar-fill benchmark-card__bar-fill--purple" data-width="87.3%"></div>
+            <div class="benchmark-card__bar-fill benchmark-card__bar-fill--purple" data-width="0%"></div>
           </div>
           <div class="benchmark-card__status">
-            <span class="benchmark-card__status-dot benchmark-card__status-dot--active"></span>
-            Live tracking — Updated weekly
+            <span class="benchmark-card__status-dot benchmark-card__status-dot--upcoming"></span>
+            Data collection pending — Baseline setup in progress
           </div>
         </div>
 
         <!-- Benchmark 2: Learning Speed -->
         <div class="benchmark-card animate-on-scroll" id="benchmark-speed">
-          <div class="benchmark-card__icon benchmark-card__icon--speed">⚡</div>
+          <div class="benchmark-card__header">
+            <div class="benchmark-card__icon benchmark-card__icon--speed">02</div>
+            <span class="benchmark-card__label">Efficiency Metric</span>
+          </div>
           <h3 class="benchmark-card__title">Learning Acquisition Rate</h3>
           <p class="benchmark-card__description">
             Speed at which users acquire and demonstrate mastery of new cognitive patterns, measured by task accuracy over sessions.
           </p>
           <div class="benchmark-card__metric">
-            <span class="benchmark-card__metric-value gradient-text">2.4x</span>
-            <span class="benchmark-card__metric-unit">faster vs. baseline</span>
+            <span class="benchmark-card__metric-value">--</span>
+            <span class="benchmark-card__metric-unit">Data not available</span>
           </div>
           <div class="benchmark-card__bar">
-            <div class="benchmark-card__bar-fill benchmark-card__bar-fill--cyan" data-width="78%"></div>
+            <div class="benchmark-card__bar-fill benchmark-card__bar-fill--cyan" data-width="0%"></div>
           </div>
           <div class="benchmark-card__status">
-            <span class="benchmark-card__status-dot benchmark-card__status-dot--active"></span>
-            Live tracking — N=1,240 users
+            <span class="benchmark-card__status-dot benchmark-card__status-dot--upcoming"></span>
+            Awaiting user cohort data — Measurement pipeline staged
           </div>
         </div>
 
         <!-- Benchmark 3: Retention -->
         <div class="benchmark-card animate-on-scroll" id="benchmark-retention">
-          <div class="benchmark-card__icon benchmark-card__icon--retention">📈</div>
+          <div class="benchmark-card__header">
+            <div class="benchmark-card__icon benchmark-card__icon--retention">03</div>
+            <span class="benchmark-card__label">Reliability Metric</span>
+          </div>
           <h3 class="benchmark-card__title">Knowledge Retention Rate</h3>
           <p class="benchmark-card__description">
             Percentage of learned cognitive patterns retained after 30 days without active training, measured via spaced recall assessments.
           </p>
           <div class="benchmark-card__metric">
-            <span class="benchmark-card__metric-value gradient-text">91.7</span>
-            <span class="benchmark-card__metric-unit">% 30-day retention</span>
+            <span class="benchmark-card__metric-value">--</span>
+            <span class="benchmark-card__metric-unit">Data not available</span>
           </div>
           <div class="benchmark-card__bar">
-            <div class="benchmark-card__bar-fill benchmark-card__bar-fill--green" data-width="91.7%"></div>
+            <div class="benchmark-card__bar-fill benchmark-card__bar-fill--green" data-width="0%"></div>
           </div>
           <div class="benchmark-card__status">
-            <span class="benchmark-card__status-dot benchmark-card__status-dot--active"></span>
-            Live tracking — Longitudinal study
+            <span class="benchmark-card__status-dot benchmark-card__status-dot--upcoming"></span>
+            Retention study not started — Dataset unavailable
           </div>
         </div>
 
