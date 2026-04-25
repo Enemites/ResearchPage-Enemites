@@ -1,5 +1,5 @@
 // ============================================
-// NovaX Research — Main JavaScript
+// NovaX Research: Main JavaScript
 // ============================================
 
 (function () {
@@ -203,19 +203,55 @@
     });
   }
 
-  // --- Smooth Scroll for Anchor Links ---
+  // --- Smooth Scroll for Anchor Links (offset for fixed nav) ---
+  function getFixedNavScrollOffset() {
+    const nav = document.querySelector('.nav');
+    if (!nav) return 88;
+    return nav.getBoundingClientRect().height + 16;
+  }
+
+  function scrollToAnchorTarget(target, smooth) {
+    const offset = getFixedNavScrollOffset();
+    const top =
+      target.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({
+      top: Math.max(0, top),
+      behavior: smooth ? 'smooth' : 'auto',
+    });
+  }
+
+  function highlightReferenceTableRow(target) {
+    if (!target || !target.matches || !target.matches('tr[id^="ref"]')) {
+      return;
+    }
+    document.querySelectorAll('tr.paper-content__ref-target').forEach((row) => {
+      row.classList.remove('paper-content__ref-target');
+    });
+    target.classList.add('paper-content__ref-target');
+  }
+
   function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (!href || href === '#') return;
+        const target = document.querySelector(href);
+        if (!target) return;
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-          });
-        }
+        scrollToAnchorTarget(target, true);
+        highlightReferenceTableRow(target);
       });
+    });
+  }
+
+  function initScrollToHashOnLoad() {
+    const hash = location.hash;
+    if (!hash || hash === '#') return;
+    const target = document.querySelector(hash);
+    if (!target) return;
+    requestAnimationFrame(() => {
+      scrollToAnchorTarget(target, false);
+      highlightReferenceTableRow(target);
     });
   }
 
@@ -328,6 +364,7 @@
     initNavScroll();
     initMobileMenu();
     initSmoothScroll();
+    initScrollToHashOnLoad();
     initCounterAnimations();
     initTocActiveState();
     initParallax();

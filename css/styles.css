@@ -1,5 +1,5 @@
 /* ============================================
-   NovaX Research — Design System
+   NovaX Research: Design System
    research.novax.tech
    ============================================ */
 
@@ -1352,6 +1352,7 @@ ul, ol { list-style: none; }
   letter-spacing: -0.02em;
   padding-bottom: var(--space-md);
   border-bottom: 1px solid var(--border-subtle);
+  scroll-margin-top: calc(var(--nav-height) + 1.25rem);
 }
 
 .paper-content h3 {
@@ -1359,6 +1360,17 @@ ul, ol { list-style: none; }
   font-weight: 700;
   margin-top: var(--space-2xl);
   margin-bottom: var(--space-md);
+  scroll-margin-top: calc(var(--nav-height) + 1rem);
+}
+
+.paper-content tr[id^="ref"] {
+  scroll-margin-top: calc(var(--nav-height) + 1rem);
+}
+
+.paper-content tr.paper-content__ref-target > td {
+  background: rgba(51, 255, 255, 0.09);
+  box-shadow: inset 4px 0 0 var(--accent-cyan);
+  transition: background 0.35s ease, box-shadow 0.35s ease;
 }
 
 .paper-content p {
