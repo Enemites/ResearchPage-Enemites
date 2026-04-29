@@ -5,18 +5,18 @@
 (function () {
   'use strict';
 
-  // --- Particle / Neural Network Canvas Background ---
+  // --- Hero smooth particle field background ---
   class NeuralCanvas {
     constructor(canvasId) {
       this.canvas = document.getElementById(canvasId);
       if (!this.canvas) return;
       this.ctx = this.canvas.getContext('2d');
       this.particles = [];
-      this.connections = [];
       this.mouse = { x: null, y: null, radius: 150 };
-      this.particleCount = 80;
-      this.maxDistance = 160;
+      this.particleCount = Math.min(180, Math.max(90, Math.floor(window.innerWidth * 0.11)));
       this.animationId = null;
+      this.time = 0;
+      this.waveScale = 0.0045;
 
       this.resize();
       this.init();
@@ -38,9 +38,14 @@
       const dpr = window.devicePixelRatio || 1;
       this.canvas.width = this.canvas.offsetWidth * dpr;
       this.canvas.height = this.canvas.offsetHeight * dpr;
-      this.ctx.scale(dpr, dpr);
+      this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       this.width = this.canvas.offsetWidth;
       this.height = this.canvas.offsetHeight;
+      this.centerX = this.width * 0.5;
+      this.centerY = this.height * 0.45;
+      this.particleCount = Math.min(180, Math.max(90, Math.floor(this.width * 0.11)));
+      this.waveScale = this.width < 768 ? 0.006 : 0.0045;
+      this.init();
     }
 
     init() {
@@ -49,76 +54,86 @@
         this.particles.push({
           x: Math.random() * this.width,
           y: Math.random() * this.height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-          radius: Math.random() * 2 + 0.5,
-          opacity: Math.random() * 0.5 + 0.1,
+          vx: (Math.random() - 0.5) * 0.15,
+          vy: (Math.random() - 0.5) * 0.15,
+          radius: Math.random() * 1.7 + 0.4,
+          opacity: Math.random() * 0.45 + 0.2,
           pulse: Math.random() * Math.PI * 2,
+          swirl: (Math.random() - 0.5) * 0.009,
+          hue: 35 + Math.random() * 165,
+          phase: Math.random() * Math.PI * 2,
         });
       }
     }
 
     animate() {
       this.ctx.clearRect(0, 0, this.width, this.height);
+      this.time += 0.004;
 
       // Update and draw particles
-      this.particles.forEach((p, i) => {
-        // Move
+      this.particles.forEach((p) => {
+        // Siri-like flow field: rotating wave currents, not center clustering
+        const noiseA = (p.x + this.time * 700) * this.waveScale;
+        const noiseB = (p.y - this.time * 520) * this.waveScale;
+        const flowAngle =
+          Math.sin(noiseA + p.phase) * 1.6 +
+          Math.cos(noiseB - p.phase) * 1.25 +
+          this.time * 0.9;
+        const waveStrength =
+          0.018 + (Math.sin(this.time * 3.4 + p.phase) + 1) * 0.0065;
+
+        p.vx += Math.cos(flowAngle) * waveStrength;
+        p.vy += Math.sin(flowAngle) * waveStrength;
+
+        // Wide orbital drift to keep the field in continuous circular motion
+        const dxOrbit = p.x - this.centerX;
+        const dyOrbit = p.y - this.centerY;
+        const orbitDist = Math.sqrt(dxOrbit * dxOrbit + dyOrbit * dyOrbit) || 1;
+        const orbitBoost = Math.min(0.012, 0.002 + orbitDist / (this.width * 180));
+        p.vx += (-dyOrbit / orbitDist) * (orbitBoost + p.swirl * 0.7);
+        p.vy += (dxOrbit / orbitDist) * (orbitBoost + p.swirl * 0.7);
+
         p.x += p.vx;
         p.y += p.vy;
-        p.pulse += 0.02;
+        p.pulse += 0.015;
 
-        // Bounce off edges
-        if (p.x < 0 || p.x > this.width) p.vx *= -1;
-        if (p.y < 0 || p.y > this.height) p.vy *= -1;
+        // Wrap around edges to keep movement fluid
+        if (p.x < -10) p.x = this.width + 10;
+        if (p.x > this.width + 10) p.x = -10;
+        if (p.y < -10) p.y = this.height + 10;
+        if (p.y > this.height + 10) p.y = -10;
 
-        // Mouse interaction
+        // Mouse interaction: gently bends the wave flow
         if (this.mouse.x !== null) {
-          const dx = p.x - this.mouse.x;
-          const dy = p.y - this.mouse.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+          const dxMouse = p.x - this.mouse.x;
+          const dyMouse = p.y - this.mouse.y;
+          const dist = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
           if (dist < this.mouse.radius) {
             const force = (this.mouse.radius - dist) / this.mouse.radius;
-            p.vx += (dx / dist) * force * 0.03;
-            p.vy += (dy / dist) * force * 0.03;
+            p.vx += (dxMouse / (dist || 1)) * force * 0.009;
+            p.vy += (dyMouse / (dist || 1)) * force * 0.009;
           }
         }
 
         // Dampen velocity
-        p.vx *= 0.999;
-        p.vy *= 0.999;
+        p.vx *= 0.985;
+        p.vy *= 0.985;
 
-        const pulseOpacity = p.opacity + Math.sin(p.pulse) * 0.15;
+        const pulseOpacity = Math.max(0.08, p.opacity + Math.sin(p.pulse + this.time) * 0.16);
+        const twinkle = 0.8 + Math.sin(p.pulse * 2 + this.time * 8) * 0.2;
+        const colorOpacity = pulseOpacity * 0.8;
 
         // Draw particle
         this.ctx.beginPath();
-        this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        this.ctx.fillStyle = `rgba(51, 255, 255, ${pulseOpacity})`;
+        this.ctx.arc(p.x, p.y, p.radius * twinkle, 0, Math.PI * 2);
+        this.ctx.fillStyle = `hsla(${p.hue}, 92%, 72%, ${colorOpacity})`;
         this.ctx.fill();
 
-        // Draw glow
+        // Soft glow
         this.ctx.beginPath();
-        this.ctx.arc(p.x, p.y, p.radius * 3, 0, Math.PI * 2);
-        this.ctx.fillStyle = `rgba(51, 255, 255, ${pulseOpacity * 0.1})`;
+        this.ctx.arc(p.x, p.y, p.radius * 4.5, 0, Math.PI * 2);
+        this.ctx.fillStyle = `hsla(${p.hue}, 92%, 72%, ${colorOpacity * 0.14})`;
         this.ctx.fill();
-
-        // Connect nearby particles
-        for (let j = i + 1; j < this.particles.length; j++) {
-          const p2 = this.particles[j];
-          const dx = p.x - p2.x;
-          const dy = p.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < this.maxDistance) {
-            const opacity = (1 - dist / this.maxDistance) * 0.15;
-            this.ctx.beginPath();
-            this.ctx.moveTo(p.x, p.y);
-            this.ctx.lineTo(p2.x, p2.y);
-            this.ctx.strokeStyle = `rgba(51, 255, 255, ${opacity})`;
-            this.ctx.lineWidth = 0.5;
-            this.ctx.stroke();
-          }
-        }
       });
 
       this.animationId = requestAnimationFrame(() => this.animate());
