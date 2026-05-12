@@ -14,7 +14,7 @@
   <meta property="og:url" content="https://research.novax.tech" />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="src/favicon.png" />
+  <link rel="icon" type="image/svg+xml" href="src/favicon.svg" />
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/styles.css" />
@@ -26,9 +26,9 @@
     <div class="nav__inner">
       <a href="/" class="nav__logo">
         <div class="nav__logo-icon">
-          <img src="src/favicon.png" alt="NovaX Logo" />
+          <img src="src/icon.svg" alt="NovaX Logo" />
         </div>
-        <span class="nav__logo-text">NovaX</span>
+        <span class="nav__logo-text">Nova</span>
         <span class="nav__badge">Research</span>
       </a>
 
@@ -37,10 +37,10 @@
         <a href="#benchmarks" class="nav__link" id="nav-benchmarks">Benchmarks</a>
         <a href="#methodology" class="nav__link" id="nav-methodology">Methodology</a>
         <a href="#whitepaper" class="nav__link" id="nav-whitepaper">Whitepaper</a>
-        <a href="https://novaxarena.tech" target="_blank" class="nav__cta" id="nav-cta">← Back to NovaX</a>
+        <a href="https://novaxarena.tech" target="_blank" class="nav__cta" id="nav-cta">Try NovaX</a>
       </div>
 
-      <button class="nav__hamburger" id="nav-hamburger" aria-label="Toggle mobile menu">
+      <button class="nav__hamburger" id="nav-hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
@@ -52,15 +52,13 @@
       <a href="#benchmarks" class="nav__link">Benchmarks</a>
       <a href="#methodology" class="nav__link">Methodology</a>
       <a href="#whitepaper" class="nav__link">Whitepaper</a>
-      <a href="https://novaxarena.tech" target="_blank" class="nav__link">← Back to NovaX</a>
+      <a href="https://novaxarena.tech" target="_blank" class="nav__link">Try NovaX</a>
     </div>
   </nav>
 
   <!-- ===== Hero Section ===== -->
   <section class="hero" id="hero">
-    <div class="hero__bg">
-      <canvas id="hero-canvas"></canvas>
-    </div>
+    <div class="hero__bg" aria-hidden="true"></div>
 
     <div class="hero__content">
       <div class="hero__badge">
@@ -80,11 +78,10 @@
       <div class="hero__actions">
         <a href="#foundational" class="btn btn--primary" id="hero-cta-papers">
           <span>Explore Research</span>
-          <span class="btn__icon">↓</span>
         </a>
         <a href="#whitepaper" class="btn btn--outline" id="hero-cta-whitepaper">
           <span>Read Whitepaper</span>
-          <span class="btn__icon">📄</span>
+          <span class="btn__icon">PDF</span>
         </a>
       </div>
     </div>
@@ -158,12 +155,12 @@
           </div>
           <div class="paper-card__meta">
             <div class="paper-card__refs">
-              <span class="paper-card__refs-icon">📚</span>
+              <span class="paper-card__refs-icon">REF</span>
               66 references
             </div>
             <a href="papers/ai-cognitive-replication.html" class="paper-card__link" id="link-ai-cognitive">
               Read evidence-backed synthesis
-              <span class="paper-card__link-arrow">→</span>
+              <span class="paper-card__link-arrow">&gt;</span>
             </a>
           </div>
         </article>
@@ -186,12 +183,12 @@
           </div>
           <div class="paper-card__meta">
             <div class="paper-card__refs">
-              <span class="paper-card__refs-icon">🔬</span>
+              <span class="paper-card__refs-icon">LAB</span>
               In Progress
             </div>
             <span class="paper-card__link" style="opacity: 0.4; cursor: default;">
               Coming Soon
-              <span class="paper-card__link-arrow">→</span>
+              <span class="paper-card__link-arrow">&gt;</span>
             </span>
           </div>
         </article>
@@ -214,12 +211,12 @@
           </div>
           <div class="paper-card__meta">
             <div class="paper-card__refs">
-              <span class="paper-card__refs-icon">🔬</span>
+              <span class="paper-card__refs-icon">LAB</span>
               In Progress
             </div>
             <span class="paper-card__link" style="opacity: 0.4; cursor: default;">
               Coming Soon
-              <span class="paper-card__link-arrow">→</span>
+              <span class="paper-card__link-arrow">&gt;</span>
             </span>
           </div>
         </article>
@@ -423,14 +420,14 @@
   <section class="whitepaper" id="whitepaper">
     <div class="container">
       <div class="whitepaper__card animate-on-scroll">
-        <div class="whitepaper__icon">📋</div>
+        <div class="whitepaper__icon">DOC</div>
         <h2 class="whitepaper__title">NovaX <span class="gradient-text">Whitepaper</span></h2>
         <p class="whitepaper__description">
           The complete technical thesis behind NovaX: our core assumptions, architectural decisions, and the neuroscientific principles driving cognitive performance optimization.
         </p>
-        <a href="#" class="btn btn--primary" id="whitepaper-download">
+        <a href="#" class="btn btn--void" id="whitepaper-download">
           <span>Coming Soon</span>
-          <span class="btn__icon">🔔</span>
+          <span class="btn__icon">SOON</span>
         </a>
       </div>
     </div>
@@ -441,9 +438,9 @@
     <div class="container">
       <div class="footer__inner">
         <div class="footer__brand">
-          <span class="footer__logo gradient-text">NovaX Research</span>
+          <span class="footer__logo gradient-text">Nova Research</span>
           <div class="footer__divider"></div>
-          <span class="footer__copy">© 2026 NovaX. All rights reserved.</span>
+          <span class="footer__copy">&copy; 2026 NovaX. All rights reserved.</span>
         </div>
 
         <div class="footer__links">
