@@ -214,6 +214,10 @@ ol {
   color: var(--nova-void);
 }
 
+.nav__link--disabled {
+  cursor: default;
+}
+
 .nav__link::after {
   position: absolute;
   bottom: -7px;
@@ -228,6 +232,10 @@ ol {
 .nav__link:hover::after,
 .nav__link--active::after {
   width: 100%;
+}
+
+.nav__link--disabled:hover::after {
+  width: 0;
 }
 
 .nav__cta,
