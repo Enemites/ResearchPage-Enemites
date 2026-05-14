@@ -1,0 +1,15 @@
+---
+import type { StatItem } from '../content/home';
+
+interface Props {
+  item: StatItem;
+}
+
+const { item } = Astro.props;
+---
+
+<div class="stat-card animate-on-scroll" id={item.id}>
+  <div class="stat-card__number gradient-text" data-count={item.value}>0</div>
+  <div class="stat-card__label">{item.label}</div>
+  <div class="stat-card__sublabel">{item.sublabel}</div>
+</div>

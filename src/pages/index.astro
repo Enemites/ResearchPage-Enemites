@@ -1,0 +1,120 @@
+---
+import BenchmarkCard from '../components/BenchmarkCard.astro';
+import MethodologyStep from '../components/MethodologyStep.astro';
+import PaperCard from '../components/PaperCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import StatCard from '../components/StatCard.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { benchmarks, methodologySteps, researchPapers, stats } from '../content/home';
+---
+
+<BaseLayout
+  title="Nova Research"
+  description="Explore the scientific research, internal benchmarks, and peer-reviewed foundations behind NovaX's cognitive performance platform. 66+ references from Nature, NeurIPS, Cell, and more."
+  keywords="NovaX, cognitive performance, AI research, brain optimization, scientific research, benchmarks"
+  ogTitle="NovaX Research: Scientific Foundations"
+  ogDescription="Peer-reviewed research, internal benchmarks, and the scientific thesis behind NovaX's cognitive performance technology."
+  ogUrl="https://research.novax.tech"
+  activeNav="foundational"
+>
+  <section class="hero" id="hero">
+    <div class="hero__bg" aria-hidden="true"></div>
+
+    <div class="hero__content">
+      <div class="hero__badge">
+        <span class="hero__badge-dot"></span>
+        Scientific Research Division
+      </div>
+
+      <h1 class="hero__title">
+        <span>The Science Behind</span>
+        <span class="gradient-text">Cognitive Excellence</span>
+      </h1>
+
+      <p class="hero__subtitle">
+        Peer-reviewed research, internal benchmarks, and rigorous scientific methodology powering the next generation of
+        human learning.
+      </p>
+
+      <div class="hero__actions">
+        <a href="#foundational" class="btn btn--primary" id="hero-cta-papers">
+          <span>Explore Research</span>
+        </a>
+        <a href="#whitepaper" class="btn btn--outline" id="hero-cta-whitepaper">
+          <span>Read Whitepaper</span>
+          <span class="btn__icon">PDF</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats" id="stats">
+    <div class="container">
+      <div class="stats__grid">
+        {stats.map((item) => <StatCard item={item} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="foundational">
+    <div class="container">
+      <SectionHeader
+        label="Foundational Research"
+        titleStart="Evidence-Backed Syntheses &"
+        titleAccent="Core Assumptions"
+        description="Peer-reviewed research from credible venues that forms the scientific foundation of NovaX. Each item is an evidence-backed synthesis: claims are citation-mapped with traceable references."
+      />
+
+      <div class="papers__grid">
+        {researchPapers.map((paper) => <PaperCard paper={paper} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section benchmarks" id="benchmarks">
+    <div class="container">
+      <SectionHeader
+        label="Internal Benchmarks"
+        titleStart="Performance Metrics &"
+        titleAccent="Cognitive Measurements"
+        description="Internal data from user measurements, cognitive task analysis, and brain performance benchmarks across NovaX user cohorts."
+      />
+
+      <div class="benchmarks__grid">
+        {benchmarks.map((item) => <BenchmarkCard item={item} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="methodology">
+    <div class="container">
+      <SectionHeader
+        label="Research Methodology"
+        titleStart="How We Conduct"
+        titleAccent="Our Research"
+        description="Our research methodology combines rigorous scientific standards with real-world user data to validate cognitive enhancement claims."
+      />
+
+      <div class="methodology__timeline">
+        {methodologySteps.map((step) => <MethodologyStep step={step} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="whitepaper" id="whitepaper">
+    <div class="container">
+      <div class="whitepaper__card animate-on-scroll">
+        <div class="whitepaper__icon">DOC</div>
+        <h2 class="whitepaper__title">NovaX <span class="gradient-text">Whitepaper</span></h2>
+        <p class="whitepaper__description">
+          The complete technical thesis behind NovaX: our core assumptions, architectural decisions, and the
+          neuroscientific principles driving cognitive performance optimization.
+        </p>
+        <a href="#" class="btn btn--void" id="whitepaper-download">
+          <span>Coming Soon</span>
+          <span class="btn__icon">SOON</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

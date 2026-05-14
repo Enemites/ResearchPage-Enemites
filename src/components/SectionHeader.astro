@@ -1,0 +1,21 @@
+---
+interface Props {
+  label: string;
+  titleStart: string;
+  titleAccent: string;
+  description: string;
+}
+
+const { label, titleStart, titleAccent, description } = Astro.props;
+---
+
+<div class="section__header animate-on-scroll">
+  <div class="section__label">
+    <span class="section__label-line"></span>
+    {label}
+  </div>
+  <h2 class="section__title">
+    {titleStart}<br /><span class="gradient-text">{titleAccent}</span>
+  </h2>
+  <p class="section__description">{description}</p>
+</div>

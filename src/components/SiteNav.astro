@@ -1,0 +1,45 @@
+---
+import iconUrl from '../icon.svg';
+
+interface Props {
+  activeItem?: 'foundational';
+  scrolled?: boolean;
+}
+
+const { activeItem, scrolled = false } = Astro.props;
+const foundationalClass = ['nav__link', activeItem === 'foundational' ? 'nav__link--active' : '']
+  .filter(Boolean)
+  .join(' ');
+---
+
+<nav class:list={['nav', { scrolled }]} id="nav">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">
+      <div class="nav__logo-icon">
+        <img src={iconUrl.src} alt="NovaX Logo" />
+      </div>
+      <span class="nav__logo-text">Nova</span>
+      <span class="nav__badge">Research</span>
+    </a>
+
+    <div class="nav__links">
+      <a href="/" class={foundationalClass} id="nav-foundational">Foundational Research</a>
+      <span class="nav__link nav__link--disabled" aria-disabled="true">Research</span>
+      <a href="https://novaxarena.tech" target="_blank" rel="noopener noreferrer" class="nav__cta" id="nav-cta">
+        Try NovaX
+      </a>
+    </div>
+
+    <button class="nav__hamburger" id="nav-hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="nav__mobile-menu" id="nav-mobile-menu">
+    <a href="/" class={foundationalClass}>Foundational Research</a>
+    <span class="nav__link nav__link--disabled" aria-disabled="true">Research</span>
+    <a href="https://novaxarena.tech" target="_blank" rel="noopener noreferrer" class="nav__link">Try NovaX</a>
+  </div>
+</nav>

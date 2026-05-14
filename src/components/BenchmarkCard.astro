@@ -1,0 +1,29 @@
+---
+import type { BenchmarkItem } from '../content/home';
+
+interface Props {
+  item: BenchmarkItem;
+}
+
+const { item } = Astro.props;
+---
+
+<div class="benchmark-card animate-on-scroll" id={item.id}>
+  <div class="benchmark-card__header">
+    <div class="benchmark-card__icon">{item.number}</div>
+    <span class="benchmark-card__label">{item.label}</span>
+  </div>
+  <h3 class="benchmark-card__title">{item.title}</h3>
+  <p class="benchmark-card__description">{item.description}</p>
+  <div class="benchmark-card__metric">
+    <span class="benchmark-card__metric-value">{item.metricValue}</span>
+    <span class="benchmark-card__metric-unit">{item.metricUnit}</span>
+  </div>
+  <div class="benchmark-card__bar">
+    <div class:list={['benchmark-card__bar-fill', item.barClass]} data-width={item.barWidth}></div>
+  </div>
+  <div class="benchmark-card__status">
+    <span class="benchmark-card__status-dot benchmark-card__status-dot--upcoming"></span>
+    {item.status}
+  </div>
+</div>

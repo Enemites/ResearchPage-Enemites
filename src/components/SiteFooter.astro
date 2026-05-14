@@ -1,0 +1,42 @@
+---
+export interface FooterLink {
+  href: string;
+  label: string;
+  id?: string;
+  external?: boolean;
+}
+
+interface Props {
+  links: FooterLink[];
+}
+
+const { links } = Astro.props;
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <span class="footer__logo gradient-text">Nova Research</span>
+        <div class="footer__divider"></div>
+        <span class="footer__copy">&copy; 2026 NovaX. All rights reserved.</span>
+      </div>
+
+      <div class="footer__links">
+        {
+          links.map((link) => (
+            <a
+              href={link.href}
+              class="footer__link"
+              id={link.id}
+              target={link.external ? '_blank' : undefined}
+              rel={link.external ? 'noopener noreferrer' : undefined}
+            >
+              {link.label}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</footer>

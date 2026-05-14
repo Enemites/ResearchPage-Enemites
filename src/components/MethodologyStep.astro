@@ -1,0 +1,16 @@
+---
+import type { MethodologyStep as MethodologyStepData } from '../content/home';
+
+interface Props {
+  step: MethodologyStepData;
+}
+
+const { step } = Astro.props;
+---
+
+<div class="methodology__item animate-on-scroll">
+  <div class="methodology__dot"></div>
+  <div class="methodology__step-label">{step.step}</div>
+  <h3 class="methodology__step-title">{step.title}</h3>
+  <p class="methodology__step-desc">{step.description}</p>
+</div>

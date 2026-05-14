@@ -606,6 +606,13 @@ ol {
   color: var(--nova-brand);
 }
 
+.paper-card__link--disabled,
+.paper-card__link--disabled:hover {
+  color: var(--nova-muted-dark);
+  cursor: default;
+  opacity: 0.55;
+}
+
 .paper-card__link-arrow {
   font-family: var(--font-mono);
 }

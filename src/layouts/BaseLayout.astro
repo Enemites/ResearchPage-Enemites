@@ -1,0 +1,64 @@
+---
+import type { FooterLink } from '../components/SiteFooter.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteNav from '../components/SiteNav.astro';
+import faviconUrl from '../favicon.svg';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  keywords?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogType?: 'website' | 'article';
+  ogUrl?: string;
+  activeNav?: 'foundational';
+  navScrolled?: boolean;
+  footerLinks?: FooterLink[];
+}
+
+const {
+  title,
+  description,
+  keywords,
+  ogTitle = title,
+  ogDescription = description,
+  ogType = 'website',
+  ogUrl,
+  activeNav,
+  navScrolled = false,
+  footerLinks = [
+    { href: 'https://novaxarena.tech', label: 'Main Site', id: 'footer-main-site', external: true },
+    { href: '#foundational', label: 'Evidence-backed syntheses' },
+    { href: '#benchmarks', label: 'Benchmarks' },
+    { href: '#methodology', label: 'Methodology' },
+  ],
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {keywords && <meta name="keywords" content={keywords} />}
+
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:type" content={ogType} />
+    {ogUrl && <meta property="og:url" content={ogUrl} />}
+
+    <link rel="icon" type="image/svg+xml" href={faviconUrl.src} />
+  </head>
+  <body>
+    <SiteNav activeItem={activeNav} scrolled={navScrolled} />
+    <slot />
+    <SiteFooter links={footerLinks} />
+    <script>
+      import '../scripts/main';
+    </script>
+  </body>
+</html>

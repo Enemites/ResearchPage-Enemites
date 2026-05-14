@@ -1,0 +1,41 @@
+---
+import type { ResearchPaper } from '../content/home';
+
+interface Props {
+  paper: ResearchPaper;
+}
+
+const { paper } = Astro.props;
+---
+
+<article class="paper-card animate-on-scroll" id={paper.id}>
+  <div class="paper-card__category">
+    <span class="paper-card__category-dot"></span>
+    {paper.category}
+  </div>
+  <h3 class="paper-card__title">{paper.title}</h3>
+  {paper.author && <p class="paper-card__author">{paper.author}</p>}
+  <p class="paper-card__abstract">{paper.abstract}</p>
+  <div class="paper-card__tags">
+    {paper.tags.map((tag) => <span class="paper-card__tag">{tag}</span>)}
+  </div>
+  <div class="paper-card__meta">
+    <div class="paper-card__refs">
+      <span class="paper-card__refs-icon">{paper.metaIcon}</span>
+      {paper.metaText}
+    </div>
+    {
+      paper.disabled ? (
+        <span class="paper-card__link paper-card__link--disabled">
+          {paper.ctaLabel}
+          <span class="paper-card__link-arrow">&gt;</span>
+        </span>
+      ) : (
+        <a href={paper.href} class="paper-card__link" id="link-ai-cognitive">
+          {paper.ctaLabel}
+          <span class="paper-card__link-arrow">&gt;</span>
+        </a>
+      )
+    }
+  </div>
+</article>
