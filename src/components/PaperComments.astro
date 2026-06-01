@@ -1,0 +1,257 @@
+---
+interface Props {
+  paperSlug: string;
+}
+
+const { paperSlug } = Astro.props;
+const emailInputId = `comment-email-${paperSlug}`;
+const bodyInputId = `comment-body-${paperSlug}`;
+const commentsSectionId = `paper-comments-${paperSlug}`;
+const commentsFormId = `paper-comment-form-${paperSlug}`;
+---
+
+<a class="paper-comments-fab" href={`#${commentsFormId}`} aria-label="Jump to comment form" title="Jump to comment form">
+  <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+    <path
+      d="M7.5 18.25 4 21V6.75A3.75 3.75 0 0 1 7.75 3h8.5A3.75 3.75 0 0 1 20 6.75v7.75a3.75 3.75 0 0 1-3.75 3.75H7.5Z"
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"></path>
+    <path
+      d="M8.25 8.75h7.5M8.25 12.25h5.25"
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"></path>
+  </svg>
+</a>
+
+<section class="paper-comments" id={commentsSectionId} data-paper-comments data-paper-slug={paperSlug}>
+  <div class="paper-comments__header">
+    <div class="paper-comments__eyebrow">
+      <span class="paper-card__category-dot"></span>
+      Reader Comments
+    </div>
+    <h2>Comments</h2>
+    <p>Submitted comments are reviewed before publication. Approved comments show a masked email label.</p>
+  </div>
+
+  <div class="paper-comments__list" data-comments-list aria-live="polite">
+    <p class="paper-comments__empty">Loading comments...</p>
+  </div>
+
+  <form class="paper-comments__form" id={commentsFormId} data-comment-form novalidate>
+    <input
+      class="paper-comments__honeypot"
+      type="text"
+      name="website"
+      tabindex="-1"
+      autocomplete="off"
+      aria-hidden="true"
+    />
+
+    <div class="paper-comments__field">
+      <label for={emailInputId}>Email</label>
+      <input
+        class="paper-comments__input"
+        id={emailInputId}
+        name="email"
+        type="email"
+        maxlength="254"
+        autocomplete="email"
+        placeholder="you@example.com"
+        required
+      />
+    </div>
+
+    <div class="paper-comments__field">
+      <label for={bodyInputId}>Comment</label>
+      <textarea
+        class="paper-comments__input paper-comments__textarea"
+        id={bodyInputId}
+        name="body"
+        minlength="10"
+        maxlength="2000"
+        rows="5"
+        required></textarea>
+    </div>
+
+    <div class="paper-comments__actions">
+      <button class="btn btn--void" type="submit">Submit comment</button>
+      <p class="paper-comments__status" data-comment-status role="status" aria-live="polite"></p>
+    </div>
+  </form>
+</section>
+
+<script>
+  interface PublicComment {
+    id: string;
+    paperSlug: string;
+    emailLabel: string;
+    body: string;
+    createdAt: string;
+  }
+
+  interface PublicCommentsResponse {
+    ok: boolean;
+    comments?: PublicComment[];
+    error?: string;
+  }
+
+  function formatCommentDate(value: string): string {
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+      return '';
+    }
+
+    return new Intl.DateTimeFormat('en', {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit',
+    }).format(date);
+  }
+
+  function createEmptyMessage(message: string): HTMLParagraphElement {
+    const element = document.createElement('p');
+    element.className = 'paper-comments__empty';
+    element.textContent = message;
+    return element;
+  }
+
+  function createCommentElement(comment: PublicComment): HTMLElement {
+    const article = document.createElement('article');
+    article.className = 'paper-comment';
+
+    const meta = document.createElement('div');
+    meta.className = 'paper-comment__meta';
+
+    const email = document.createElement('span');
+    email.textContent = comment.emailLabel;
+
+    const date = document.createElement('time');
+    date.dateTime = comment.createdAt;
+    date.textContent = formatCommentDate(comment.createdAt);
+
+    meta.append(email, date);
+
+    const body = document.createElement('p');
+    body.className = 'paper-comment__body';
+    body.textContent = comment.body;
+
+    article.append(meta, body);
+    return article;
+  }
+
+  function setCommentStatus(form: HTMLFormElement, message: string, state: 'idle' | 'success' | 'error'): void {
+    const status = form.querySelector<HTMLElement>('[data-comment-status]');
+    if (!status) return;
+
+    status.className = `paper-comments__status paper-comments__status--${state}`;
+    status.textContent = message;
+  }
+
+  async function loadPublicComments(section: HTMLElement): Promise<void> {
+    const paperSlug = section.dataset.paperSlug;
+    const list = section.querySelector<HTMLElement>('[data-comments-list]');
+
+    if (!paperSlug || !list) return;
+
+    try {
+      const response = await fetch(`/api/comments?paperSlug=${encodeURIComponent(paperSlug)}`);
+      const data = (await response.json()) as PublicCommentsResponse;
+
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error ?? 'Comments are unavailable.');
+      }
+
+      const comments = data.comments ?? [];
+      list.replaceChildren(
+        ...(comments.length > 0
+          ? comments.map((comment) => createCommentElement(comment))
+          : [createEmptyMessage('No approved comments yet.')])
+      );
+    } catch {
+      list.replaceChildren(createEmptyMessage('Comments are unavailable.'));
+    }
+  }
+
+  function initCommentForm(section: HTMLElement): void {
+    const form = section.querySelector<HTMLFormElement>('[data-comment-form]');
+    const paperSlug = section.dataset.paperSlug;
+
+    if (!form || !paperSlug) return;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const submitButton = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      const formData = new FormData(form);
+      const payload = {
+        paperSlug,
+        email: String(formData.get('email') ?? ''),
+        body: String(formData.get('body') ?? ''),
+        website: String(formData.get('website') ?? ''),
+      };
+
+      submitButton?.setAttribute('disabled', 'true');
+      setCommentStatus(form, 'Submitting comment...', 'idle');
+
+      try {
+        const response = await fetch('/api/comments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = (await response.json()) as PublicCommentsResponse;
+
+        if (!response.ok || !data.ok) {
+          throw new Error(data.error ?? 'Comment could not be submitted.');
+        }
+
+        form.reset();
+        setCommentStatus(form, 'comment submitted for review', 'success');
+      } catch (error) {
+        setCommentStatus(form, error instanceof Error ? error.message : 'Comment could not be submitted.', 'error');
+      } finally {
+        submitButton?.removeAttribute('disabled');
+      }
+    });
+  }
+
+  function initFloatingCommentButton(section: HTMLElement): void {
+    const paperSlug = section.dataset.paperSlug;
+    if (!paperSlug) return;
+
+    const button = document.querySelector<HTMLAnchorElement>(`.paper-comments-fab[href="#paper-comment-form-${paperSlug}"]`);
+    const form = section.querySelector<HTMLFormElement>('[data-comment-form]');
+    const email = form?.querySelector<HTMLInputElement>('input[name="email"]');
+
+    if (!button || !form) return;
+
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      const nav = document.querySelector<HTMLElement>('.nav');
+      const offset = (nav?.getBoundingClientRect().height ?? 72) + 20;
+      const top = form.getBoundingClientRect().top + window.scrollY - offset;
+
+      window.scrollTo({
+        top: Math.max(0, top),
+        behavior: 'smooth',
+      });
+
+      window.setTimeout(() => {
+        email?.focus({ preventScroll: true });
+      }, 420);
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-paper-comments]').forEach((section) => {
+    void loadPublicComments(section);
+    initCommentForm(section);
+    initFloatingCommentButton(section);
+  });
+</script>

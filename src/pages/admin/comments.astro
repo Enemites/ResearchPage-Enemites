@@ -1,0 +1,286 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const footerLinks = [
+  { href: 'https://novaxarena.tech', label: 'Main Site', external: true },
+  { href: '/', label: 'Research Hub' },
+];
+---
+
+<BaseLayout
+  title="Comment Moderation | NovaX Research"
+  description="Moderate paper and synthesis comments for NovaX Research."
+  navScrolled={true}
+  footerLinks={footerLinks}
+>
+  <main class="admin-comments-page">
+    <section class="admin-comments">
+      <a href="/" class="paper-page__back">Back to Research Hub</a>
+
+      <div class="admin-comments__eyebrow">
+        <span class="paper-card__category-dot"></span>
+        Comment Moderation
+      </div>
+
+      <header class="admin-comments__header">
+        <h1>Paper Comment Review</h1>
+        <p>Approve or reject submitted reader comments before they appear publicly.</p>
+      </header>
+
+      <form class="admin-comments__token-form" id="comment-admin-token-form">
+        <label for="comment-admin-token">Admin token</label>
+        <div class="admin-comments__token-row">
+          <input
+            class="admin-comments__input"
+            id="comment-admin-token"
+            name="token"
+            type="password"
+            autocomplete="off"
+            required
+          />
+          <button class="btn btn--void" type="submit">Load queue</button>
+        </div>
+      </form>
+
+      <div class="admin-comments__filters" aria-label="Comment status filters">
+        <button class="admin-comments__filter active" type="button" data-status="pending">Pending</button>
+        <button class="admin-comments__filter" type="button" data-status="approved">Approved</button>
+        <button class="admin-comments__filter" type="button" data-status="rejected">Rejected</button>
+      </div>
+
+      <p class="admin-comments__status" id="comment-admin-status" role="status" aria-live="polite"></p>
+      <div class="admin-comments__list" id="comment-admin-list" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script>
+    type AdminStatus = 'pending' | 'approved' | 'rejected';
+    type ReviewStatus = 'approved' | 'rejected';
+
+    interface AdminComment {
+      id: string;
+      paperSlug: string;
+      email: string;
+      emailLabel: string;
+      body: string;
+      status: AdminStatus;
+      createdAt: string;
+      reviewedAt: string | null;
+      reviewerNote: string | null;
+    }
+
+    interface AdminCommentsResponse {
+      ok: boolean;
+      comments?: AdminComment[];
+      comment?: AdminComment;
+      error?: string;
+    }
+
+    const tokenStorageKey = 'novax-comment-admin-token';
+    const tokenForm = document.querySelector<HTMLFormElement>('#comment-admin-token-form');
+    const tokenInput = document.querySelector<HTMLInputElement>('#comment-admin-token');
+    const statusElement = document.querySelector<HTMLElement>('#comment-admin-status');
+    const listElement = document.querySelector<HTMLElement>('#comment-admin-list');
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>('[data-status]');
+    let activeStatus: AdminStatus = 'pending';
+
+    function formatAdminDate(value: string | null): string {
+      if (!value) return '';
+
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return '';
+
+      return new Intl.DateTimeFormat('en', {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+      }).format(date);
+    }
+
+    function setAdminStatus(message: string, state: 'idle' | 'success' | 'error' = 'idle'): void {
+      if (!statusElement) return;
+
+      statusElement.className = `admin-comments__status admin-comments__status--${state}`;
+      statusElement.textContent = message;
+    }
+
+    function getAdminToken(): string {
+      return tokenInput?.value.trim() || sessionStorage.getItem(tokenStorageKey) || '';
+    }
+
+    function createAdminEmptyMessage(message: string): HTMLParagraphElement {
+      const element = document.createElement('p');
+      element.className = 'admin-comments__empty';
+      element.textContent = message;
+      return element;
+    }
+
+    function createAdminCommentElement(comment: AdminComment): HTMLElement {
+      const article = document.createElement('article');
+      article.className = 'admin-comment';
+
+      const header = document.createElement('div');
+      header.className = 'admin-comment__header';
+
+      const identity = document.createElement('div');
+      identity.className = 'admin-comment__identity';
+
+      const email = document.createElement('span');
+      email.className = 'admin-comment__email';
+      email.textContent = comment.email;
+
+      const paper = document.createElement('span');
+      paper.className = 'admin-comment__paper';
+      paper.textContent = comment.paperSlug;
+
+      identity.append(email, paper);
+
+      const status = document.createElement('span');
+      status.className = `admin-comment__status admin-comment__status--${comment.status}`;
+      status.textContent = comment.status;
+
+      header.append(identity, status);
+
+      const meta = document.createElement('div');
+      meta.className = 'admin-comment__meta';
+      meta.textContent = `Submitted ${formatAdminDate(comment.createdAt)}`;
+
+      const body = document.createElement('p');
+      body.className = 'admin-comment__body';
+      body.textContent = comment.body;
+
+      const noteLabel = document.createElement('label');
+      noteLabel.className = 'admin-comment__note-label';
+      noteLabel.textContent = 'Reviewer note';
+
+      const note = document.createElement('textarea');
+      note.className = 'admin-comments__input admin-comment__note';
+      note.rows = 3;
+      note.maxLength = 500;
+      note.value = comment.reviewerNote ?? '';
+
+      const actions = document.createElement('div');
+      actions.className = 'admin-comment__actions';
+
+      const approveButton = document.createElement('button');
+      approveButton.className = 'admin-comment__action';
+      approveButton.type = 'button';
+      approveButton.textContent = 'Approve';
+      approveButton.disabled = comment.status === 'approved';
+      approveButton.addEventListener('click', () => {
+        void reviewComment(comment.id, 'approved', note.value);
+      });
+
+      const rejectButton = document.createElement('button');
+      rejectButton.className = 'admin-comment__action admin-comment__action--reject';
+      rejectButton.type = 'button';
+      rejectButton.textContent = 'Reject';
+      rejectButton.disabled = comment.status === 'rejected';
+      rejectButton.addEventListener('click', () => {
+        void reviewComment(comment.id, 'rejected', note.value);
+      });
+
+      actions.append(approveButton, rejectButton);
+      article.append(header, meta, body, noteLabel, note, actions);
+      return article;
+    }
+
+    async function loadAdminComments(): Promise<void> {
+      if (!listElement) return;
+
+      const token = getAdminToken();
+      if (!token) {
+        setAdminStatus('Admin token is required.', 'error');
+        return;
+      }
+
+      setAdminStatus('Loading comments...');
+      listElement.replaceChildren();
+
+      try {
+        const response = await fetch(`/api/admin/comments?status=${activeStatus}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = (await response.json()) as AdminCommentsResponse;
+
+        if (!response.ok || !data.ok) {
+          throw new Error(data.error ?? 'Comments are unavailable.');
+        }
+
+        const comments = data.comments ?? [];
+        listElement.replaceChildren(
+          ...(comments.length > 0
+            ? comments.map((comment) => createAdminCommentElement(comment))
+            : [createAdminEmptyMessage(`No ${activeStatus} comments.`)])
+        );
+        setAdminStatus(`${comments.length} ${activeStatus} comments loaded.`, 'success');
+      } catch (error) {
+        listElement.replaceChildren(createAdminEmptyMessage('Comments are unavailable.'));
+        setAdminStatus(error instanceof Error ? error.message : 'Comments are unavailable.', 'error');
+      }
+    }
+
+    async function reviewComment(id: string, status: ReviewStatus, reviewerNote: string): Promise<void> {
+      const token = getAdminToken();
+      if (!token) {
+        setAdminStatus('Admin token is required.', 'error');
+        return;
+      }
+
+      setAdminStatus('Updating comment...');
+
+      try {
+        const response = await fetch(`/api/admin/comments/${encodeURIComponent(id)}`, {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ status, reviewerNote }),
+        });
+        const data = (await response.json()) as AdminCommentsResponse;
+
+        if (!response.ok || !data.ok) {
+          throw new Error(data.error ?? 'Comment could not be updated.');
+        }
+
+        setAdminStatus(`Comment ${status}.`, 'success');
+        await loadAdminComments();
+      } catch (error) {
+        setAdminStatus(error instanceof Error ? error.message : 'Comment could not be updated.', 'error');
+      }
+    }
+
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const status = button.dataset.status as AdminStatus | undefined;
+        if (!status) return;
+
+        activeStatus = status;
+        filterButtons.forEach((item) => item.classList.toggle('active', item === button));
+        void loadAdminComments();
+      });
+    });
+
+    tokenForm?.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const token = getAdminToken();
+      if (!token) {
+        setAdminStatus('Admin token is required.', 'error');
+        return;
+      }
+
+      sessionStorage.setItem(tokenStorageKey, token);
+      void loadAdminComments();
+    });
+
+    const storedToken = sessionStorage.getItem(tokenStorageKey);
+    if (storedToken && tokenInput) {
+      tokenInput.value = storedToken;
+      void loadAdminComments();
+    }
+  </script>
+</BaseLayout>
