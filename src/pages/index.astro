@@ -10,10 +10,10 @@ import { benchmarks, methodologySteps, researchPapers, stats } from '../content/
 
 <BaseLayout
   title="Nova Research"
-  description="Explore the scientific research, internal benchmarks, and peer-reviewed foundations behind NovaX's cognitive performance platform. 66+ references from Nature, NeurIPS, Cell, and more."
+  description="Explore upcoming NovaX research papers, internal benchmarks, and the scientific thesis behind NovaX's cognitive performance platform."
   keywords="NovaX, cognitive performance, AI research, brain optimization, scientific research, benchmarks"
   ogTitle="NovaX Research: Scientific Foundations"
-  ogDescription="Peer-reviewed research, internal benchmarks, and the scientific thesis behind NovaX's cognitive performance technology."
+  ogDescription="Upcoming research papers, internal benchmarks, and the scientific thesis behind NovaX's cognitive performance technology."
   ogUrl="https://research.novax.tech"
   activeNav="foundational"
 >
@@ -32,7 +32,7 @@ import { benchmarks, methodologySteps, researchPapers, stats } from '../content/
       </h1>
 
       <p class="hero__subtitle">
-        Peer-reviewed research, internal benchmarks, and rigorous scientific methodology powering the next generation of
+        Upcoming research papers, internal benchmarks, and rigorous scientific methodology powering the next generation of
         human learning.
       </p>
 
@@ -60,14 +60,22 @@ import { benchmarks, methodologySteps, researchPapers, stats } from '../content/
     <div class="container">
       <SectionHeader
         label="Foundational Research"
-        titleStart="Evidence-Backed Syntheses &"
-        titleAccent="Core Assumptions"
-        description="Peer-reviewed research from credible venues that forms the scientific foundation of NovaX. Each item is an evidence-backed synthesis: claims are citation-mapped with traceable references."
+        titleStart="Research Papers"
+        titleAccent="Coming Soon"
+        description="NovaX research papers are being prepared for publication."
       />
 
-      <div class="papers__grid">
-        {researchPapers.map((paper) => <PaperCard paper={paper} />)}
-      </div>
+      {
+        researchPapers.length > 0 ? (
+          <div class="papers__grid">
+            {researchPapers.map((paper) => <PaperCard paper={paper} />)}
+          </div>
+        ) : (
+          <div class="papers__empty animate-on-scroll">
+            <p>Our first papers are on the way. Check back soon — or reach us at <a href="mailto:novaniansupp@gmail.com">novaniansupp@gmail.com</a></p>
+          </div>
+        )
+      }
     </div>
   </section>
 

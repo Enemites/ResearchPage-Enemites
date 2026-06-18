@@ -40,70 +40,32 @@ export interface MethodologyStep {
 
 export const stats: StatItem[] = [
   {
+    id: 'stat-papers',
+    value: 0,
+    label: 'Published Papers',
+    sublabel: 'First papers are on the way',
+  },
+  {
     id: 'stat-references',
-    value: 66,
-    label: 'Peer-Reviewed References',
-    sublabel: 'Nature, NeurIPS, Cell, PNAS, ICML',
+    value: 0,
+    label: 'Public References',
+    sublabel: 'Citation corpus pending publication',
+  },
+  {
+    id: 'stat-benchmarks',
+    value: 0,
+    label: 'Published Benchmarks',
+    sublabel: 'Benchmark reports not public yet',
   },
   {
     id: 'stat-domains',
-    value: 8,
-    label: 'Research Domains',
-    sublabel: 'Neuroscience, AI, Cognition & more',
-  },
-  {
-    id: 'stat-studies',
-    value: 5,
-    label: 'Published Benchmarks',
-    sublabel: 'Validated benchmark reports completed',
-  },
-  {
-    id: 'stat-metrics',
-    value: 1,
-    label: 'Completed Evidence-Backed Syntheses',
-    sublabel: 'Scientific syntheses fully published',
+    value: 0,
+    label: 'Public Domains',
+    sublabel: 'Research areas pending publication',
   },
 ];
 
-export const researchPapers: ResearchPaper[] = [
-  {
-    id: 'paper-ai-cognitive',
-    category: 'Evidence-Backed Synthesis',
-    title: 'AI Cognitive Replication',
-    author: 'Created by Nafis',
-    abstract:
-      'An evidence-backed synthesis of current AI capabilities in cognitive replication, brain functions not yet replicated, neuroscientific gaps, and the principles required to narrow the gap between artificial and biological intelligence.',
-    tags: ['Transformers', 'Neuroscience', 'Continual Learning', 'Causal Reasoning', 'Symbol Grounding'],
-    metaIcon: 'REF',
-    metaText: '66 references',
-    href: '/papers/ai-cognitive-replication/',
-    ctaLabel: 'Read evidence-backed synthesis',
-  },
-  {
-    id: 'paper-cognitive-load',
-    category: 'Evidence-Backed Synthesis',
-    title: 'Cognitive Load Optimization Through Adaptive Interface Design',
-    abstract:
-      'Investigation into how dynamic interface complexity affects working memory utilization and task completion rates. Measuring real-time cognitive load via behavioral proxies across NovaX user sessions.',
-    tags: ['Working Memory', 'UX Research', 'Cognitive Load', 'Adaptive UI'],
-    metaIcon: 'LAB',
-    metaText: 'In Progress',
-    ctaLabel: 'Coming Soon',
-    disabled: true,
-  },
-  {
-    id: 'paper-flow-state',
-    category: 'Evidence-Backed Synthesis',
-    title: 'Flow State Induction & Sustained Attention in Digital Environments',
-    abstract:
-      "Examining the neural and behavioral correlates of flow states within NovaX's gamified cognitive training paradigm. Analysis of session duration, error patterns, and self-reported engagement metrics.",
-    tags: ['Flow State', 'Attention', 'Gamification', 'Engagement'],
-    metaIcon: 'LAB',
-    metaText: 'In Progress',
-    ctaLabel: 'Coming Soon',
-    disabled: true,
-  },
-];
+export const researchPapers: ResearchPaper[] = [];
 
 export const benchmarks: BenchmarkItem[] = [
   {
@@ -176,9 +138,9 @@ export const benchmarks: BenchmarkItem[] = [
 export const methodologySteps: MethodologyStep[] = [
   {
     step: 'Step 01',
-    title: 'Scientific Synthesis & Publication',
+    title: 'Literature Review & Publication',
     description:
-      'Every research initiative starts with a comprehensive review of peer-reviewed literature. We produce citation-mapped scientific syntheses with traceable references from venues like Nature, Science, NeurIPS, and Cell, then publish them as our scientific foundation.',
+      'Every research initiative starts with a comprehensive review of peer-reviewed literature. We produce citation-mapped publications with traceable references from credible venues, then publish them as our scientific foundation.',
   },
   {
     step: 'Step 02',
