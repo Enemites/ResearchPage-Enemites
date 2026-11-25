@@ -2,31 +2,32 @@
 import iconUrl from '../icon.svg';
 
 interface Props {
-  activeItem?: 'foundational';
+  activeItem?: 'publications' | 'methodology';
   scrolled?: boolean;
 }
 
 const { activeItem, scrolled = false } = Astro.props;
-const foundationalClass = ['nav__link', activeItem === 'foundational' ? 'nav__link--active' : '']
-  .filter(Boolean)
-  .join(' ');
+const pubClass = ['nav__link', activeItem === 'publications' ? 'nav__link--active' : ''].filter(Boolean).join(' ');
+const methodClass = ['nav__link', activeItem === 'methodology' ? 'nav__link--active' : ''].filter(Boolean).join(' ');
 ---
 
 <nav class:list={['nav', { scrolled }]} id="nav">
   <div class="nav__inner">
     <a href="/" class="nav__logo">
       <div class="nav__logo-icon">
-        <img src={iconUrl.src} alt="NovaX Logo" />
+        <img src={iconUrl.src} alt="Enemites Logo" />
       </div>
-      <span class="nav__logo-text">Nova</span>
+      <span class="nav__logo-text">Enemites</span>
       <span class="nav__badge">Research</span>
     </a>
 
     <div class="nav__links">
-      <a href="/" class={foundationalClass} id="nav-foundational">Foundational Research</a>
-      <span class="nav__link nav__link--disabled" aria-disabled="true">Research</span>
-      <a href="https://novaxarena.tech" target="_blank" rel="noopener noreferrer" class="nav__cta" id="nav-cta">
-        Try NovaX
+      <a href="/#publications" class={pubClass} id="nav-publications">Publications</a>
+      <a href="/#methodology" class={methodClass} id="nav-methodology">Methodology</a>
+      <a href="https://enemites.com/profile" target="_blank" rel="noopener noreferrer" class="nav__link">Profile</a>
+      <a href="mailto:support@enemites.com" class="nav__link">Contact</a>
+      <a href="https://enemites.com/realms" target="_blank" rel="noopener noreferrer" class="nav__cta" id="nav-cta">
+        Try Realms
       </a>
     </div>
 
@@ -38,8 +39,12 @@ const foundationalClass = ['nav__link', activeItem === 'foundational' ? 'nav__li
   </div>
 
   <div class="nav__mobile-menu" id="nav-mobile-menu">
-    <a href="/" class={foundationalClass}>Foundational Research</a>
-    <span class="nav__link nav__link--disabled" aria-disabled="true">Research</span>
-    <a href="https://novaxarena.tech" target="_blank" rel="noopener noreferrer" class="nav__link">Try NovaX</a>
+    <a href="/#publications" class={pubClass}>Publications</a>
+    <a href="/#methodology" class={methodClass}>Methodology</a>
+    <a href="https://enemites.com/profile" target="_blank" rel="noopener noreferrer" class="nav__link">Profile</a>
+    <a href="mailto:support@enemites.com" class="nav__link">Contact</a>
+    <a href="https://enemites.com/realms" target="_blank" rel="noopener noreferrer" class="nav__link nav__link--cta">
+      Try Realms &rarr;
+    </a>
   </div>
 </nav>
