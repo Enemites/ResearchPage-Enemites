@@ -41,7 +41,7 @@ export interface MethodologyStep {
 export const stats: StatItem[] = [
   {
     id: 'stat-references',
-    value: 66,
+    value: 81,
     label: 'Peer-Reviewed References',
     sublabel: 'Nature, NeurIPS, Cell, PNAS, ICML',
   },
@@ -59,13 +59,26 @@ export const stats: StatItem[] = [
   },
   {
     id: 'stat-metrics',
-    value: 1,
-    label: 'Completed Evidence-Backed Syntheses',
-    sublabel: 'Scientific syntheses fully published',
+    value: 2,
+    label: 'Published Research Papers',
+    sublabel: 'Syntheses & technical preprints published',
   },
 ];
 
 export const researchPapers: ResearchPaper[] = [
+  {
+    id: 'paper-sprint-lp',
+    category: 'Technical Preprint',
+    title: 'SPRINT-LP: GPU-Native Local Plasticity with Hard-Isolated Parallel Streams',
+    author: 'Enemites Research Team · M.D. Nafis',
+    abstract:
+      'Formally proved in Lean 4 and empirically validated on Kaggle NVIDIA T4x2 silicon, SPRINT-LP refutes GPU incompatibility of local plasticity and hard-isolated parallel streams: -79.0% activation VRAM and 11.5% faster single-GPU execution, 0.79x Iso-Width latency with 1.28x energy efficiency, 2.47x 2-GPU zero-bubble speedup, and zero accuracy loss on AffCIFAR-10 v2.',
+    tags: ['Local Plasticity', 'CUDA Graphs', 'Lean 4', 'Multi-GPU', 'Parallel Streams'],
+    metaIcon: 'REF',
+    metaText: '15 references · Lean 4 + T4x2',
+    href: '/papers/sprint-lp/',
+    ctaLabel: 'Read technical preprint',
+  },
   {
     id: 'paper-ai-cognitive',
     category: 'Evidence-Backed Synthesis',
