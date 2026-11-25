@@ -13,12 +13,14 @@ const methodClass = ['nav__link', activeItem === 'methodology' ? 'nav__link--act
 
 <nav class:list={['nav', { scrolled }]} id="nav">
   <div class="nav__inner">
-    <a href="/" class="nav__logo">
-      <div class="nav__logo-icon">
-        <img src={iconUrl.src} alt="Enemites Logo" />
-      </div>
-      <span class="nav__logo-text">Enemites</span>
-      <span class="nav__badge">Research</span>
+    <a href="/" class="nav__logo" aria-label="Enemites Research Home">
+      <span class="nav__logo-icon">
+        <img src={iconUrl.src} alt="" />
+      </span>
+      <span class="nav__wordmark">
+        <span class="nav__logo-text">Enemites</span>
+        <span class="nav__logo-sub">Research</span>
+      </span>
     </a>
 
     <div class="nav__links">
