@@ -1,4 +1,6 @@
 ---
+import iconUrl from '../icon.svg';
+
 export interface FooterLink {
   href: string;
   label: string;
@@ -17,9 +19,12 @@ const { links } = Astro.props;
   <div class="container">
     <div class="footer__inner">
       <div class="footer__brand">
-        <span class="footer__logo gradient-text">Nova Research</span>
-        <div class="footer__divider"></div>
-        <span class="footer__copy">&copy; 2026 NovaX. All rights reserved.</span>
+        <a href="/" class="footer__logo">
+          <img src={iconUrl.src} alt="" class="footer__logo-mark" />
+          <span>Enemites</span>
+          <span class="footer__logo-sub">Research</span>
+        </a>
+        <p class="footer__copy">&copy; 2026 Enemites. All rights reserved.</p>
       </div>
 
       <div class="footer__links">
