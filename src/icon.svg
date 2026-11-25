@@ -1,13 +1,9 @@
-<svg viewBox="0 0 84 84" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <clipPath id="cut">
-      <polygon points="0,0 56,0 56,84 0,84"/>
-      <polygon points="70,0 84,0 84,84 70,84"/>
-    </clipPath>
-  </defs>
-  <g clip-path="url(#cut)">
-    <rect x="0" y="0" width="14" height="84" rx="3" fill="#111"/>
-    <polygon points="14,0 42,0 84,84 56,84" fill="#111"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 100" fill="none">
+  <g fill="#272C27">
+    <path d="M 59.23 55.99 L 24.69 56.4 L 6.0 70.42 L 42.36 70.21 Z" />
+    <path d="M 115.3 31.41 L 81.37 31.61 L 61.46 47.26 L 79.34 47.46 L 79.74 48.07 L 57.8 92.36 L 84.42 76.31 L 101.89 45.43 Z" />
+    <path d="M 12.91 47.46 L 46.83 46.85 L 48.46 46.04 L 66.74 31.41 L 35.66 31.41 L 33.83 31.82 L 31.39 33.04 Z" />
+    <path d="M 122.0 7.64 L 100.47 7.85 L 95.59 12.52 L 85.84 22.88 L 106.97 22.88 L 108.8 22.47 L 110.42 21.25 Z" />
+    <path d="M 23.47 24.5 L 32.41 23.08 L 71.01 22.88 L 90.11 7.64 L 47.44 7.64 L 45.41 8.05 L 41.75 9.88 Z" />
   </g>
-  <rect x="70" y="0" width="14" height="84" rx="3" fill="#111"/>
 </svg>
