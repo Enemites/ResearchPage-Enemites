@@ -1,6 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <rect width="64" height="64" rx="14" fill="#F5F2EB" />
-  <g fill="#272C27">
+  <style>
+    .mark { fill: #272C27; }
+    @media (prefers-color-scheme: dark) {
+      .mark { fill: #F5F2EB; }
+    }
+  </style>
+  <g class="mark">
     <path d="M 30.08 35.42 L 15.8 35.59 L 8.0 41.39 L 23.1 41.3 Z" />
     <path d="M 53.26 25.25 L 39.23 25.34 L 31.0 31.81 L 38.39 31.89 L 38.56 32.14 L 29.49 50.46 L 40.49 43.82 L 47.72 31.05 Z" />
     <path d="M 10.92 31.89 L 24.95 31.64 L 25.62 31.3 L 33.18 25.25 L 20.33 25.25 L 19.57 25.42 L 18.56 25.93 Z" />
