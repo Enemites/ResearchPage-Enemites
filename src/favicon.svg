@@ -1,10 +1,10 @@
-<svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" style="">
-  <rect x="0" y="0" width="100" height="100" rx="18" fill="#111" style="fill:rgb(17, 17, 17);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
-  <g transform="translate(16, 16)" style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">
-    <rect x="0" y="0" width="12" height="68" rx="3" fill="white" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
-    <rect x="56" y="0" width="12" height="68" rx="3" fill="white" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
-    <polygon points="12,0 36,0 68,68 44,68" fill="white" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
-    <rect x="44" y="0" width="12" height="68" fill="#111" style="fill:rgb(17, 17, 17);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
-    <rect x="56" y="0" width="12" height="68" rx="3" fill="white" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="14" fill="#F5F2EB" />
+  <g fill="#272C27">
+    <path d="M 30.08 35.42 L 15.8 35.59 L 8.0 41.39 L 23.1 41.3 Z" />
+    <path d="M 53.26 25.25 L 39.23 25.34 L 31.0 31.81 L 38.39 31.89 L 38.56 32.14 L 29.49 50.46 L 40.49 43.82 L 47.72 31.05 Z" />
+    <path d="M 10.92 31.89 L 24.95 31.64 L 25.62 31.3 L 33.18 25.25 L 20.33 25.25 L 19.57 25.42 L 18.56 25.93 Z" />
+    <path d="M 56.0 15.42 L 47.1 15.51 L 45.08 17.44 L 41.05 21.72 L 49.79 21.72 L 50.54 21.55 L 51.21 21.05 Z" />
+    <path d="M 15.29 22.39 L 18.98 21.81 L 34.95 21.72 L 42.85 15.42 L 25.2 15.42 L 24.36 15.59 L 22.85 16.35 Z" />
   </g>
 </svg>
