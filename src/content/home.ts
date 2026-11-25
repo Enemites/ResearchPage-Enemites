@@ -1,19 +1,27 @@
 export interface StatItem {
   id: string;
   value: number;
+  displayValue?: string;
   label: string;
   sublabel: string;
+}
+
+export interface PaperHighlight {
+  label: string;
+  value: string;
 }
 
 export interface ResearchPaper {
   id: string;
   category: string;
+  date?: string;
   title: string;
   author?: string;
   abstract: string;
   tags: string[];
   metaIcon: string;
   metaText: string;
+  highlights?: PaperHighlight[];
   href?: string;
   ctaLabel: string;
   disabled?: boolean;
@@ -40,28 +48,32 @@ export interface MethodologyStep {
 
 export const stats: StatItem[] = [
   {
-    id: 'stat-references',
-    value: 81,
-    label: 'Peer-Reviewed References',
-    sublabel: 'Nature, NeurIPS, Cell, PNAS, ICML',
+    id: 'stat-vram',
+    value: 79,
+    displayValue: '-79.0%',
+    label: 'Peak Activation VRAM',
+    sublabel: 'K = 6 local blocks vs. Global BP on 1 GPU',
   },
   {
-    id: 'stat-domains',
-    value: 8,
-    label: 'Research Domains',
-    sublabel: 'Neuroscience, AI, Cognition & more',
+    id: 'stat-speedup',
+    value: 247,
+    displayValue: '2.47x',
+    label: '2-GPU Async Speedup',
+    sublabel: 'Zero-bubble pipeline on Kaggle NVIDIA T4x2',
   },
   {
-    id: 'stat-studies',
+    id: 'stat-iterations',
     value: 5,
-    label: 'Published Benchmarks',
-    sublabel: 'Validated benchmark reports completed',
+    displayValue: 'v1-v5',
+    label: 'Falsification Cycles',
+    sublabel: 'Every component tested against strict kill criteria',
   },
   {
-    id: 'stat-metrics',
-    value: 2,
-    label: 'Published Research Papers',
-    sublabel: 'Syntheses & technical preprints published',
+    id: 'stat-papers',
+    value: 1,
+    displayValue: '01',
+    label: 'Published Preprint',
+    sublabel: 'Formally proved in Lean 4 + silicon verified',
   },
 ];
 
@@ -69,146 +81,102 @@ export const researchPapers: ResearchPaper[] = [
   {
     id: 'paper-sprint-lp',
     category: 'Technical Preprint',
+    date: 'November 25, 2026',
     title: 'SPRINT-LP: GPU-Native Local Plasticity with Hard-Isolated Parallel Streams',
     author: 'Enemites Research Team · M.D. Nafis',
     abstract:
-      'Formally proved in Lean 4 and empirically validated on Kaggle NVIDIA T4x2 silicon, SPRINT-LP refutes GPU incompatibility of local plasticity and hard-isolated parallel streams: -79.0% activation VRAM and 11.5% faster single-GPU execution, 0.79x Iso-Width latency with 1.28x energy efficiency, 2.47x 2-GPU zero-bubble speedup, and zero accuracy loss on AffCIFAR-10 v2.',
-    tags: ['Local Plasticity', 'CUDA Graphs', 'Lean 4', 'Multi-GPU', 'Parallel Streams'],
-    metaIcon: 'REF',
+      'Formally proved in pure Lean 4 and empirically validated on Kaggle NVIDIA T4x2 silicon across five falsification iterations (v1-v5), SPRINT-LP refutes the assumption that hard-isolated parallel streams and local synaptic plasticity are incompatible with modern GPUs. Uniting cuBLAS batched GEMMs (torch.baddbmm), whole-step CUDA Graphs, Shared V1/V2 Stem + Late Bifurcation, and Deep-MAN++, it beats Global BP on single-GPU activation memory (-79.0%), single-GPU identical-parameter speed (-11.5%), Iso-Width energy efficiency (+28-39%), and 2-GPU scaling (2.47x) with zero accuracy degradation under live async execution.',
+    tags: ['Local Plasticity', 'Lean 4', 'CUDA Graphs', 'Multi-GPU', 'Parallel Streams'],
+    metaIcon: 'PROOF',
     metaText: '15 references · Lean 4 + T4x2',
+    highlights: [
+      { label: 'Single-GPU VRAM', value: '-79.0% (159.2 MB)' },
+      { label: '2-GPU Speedup', value: '2.47x Zero-Bubble' },
+      { label: 'Orthogonality', value: 'CKA = 0.057' },
+    ],
     href: '/papers/sprint-lp/',
     ctaLabel: 'Read technical preprint',
-  },
-  {
-    id: 'paper-ai-cognitive',
-    category: 'Evidence-Backed Synthesis',
-    title: 'AI Cognitive Replication',
-    author: 'Created by Nafis',
-    abstract:
-      'An evidence-backed synthesis of current AI capabilities in cognitive replication, brain functions not yet replicated, neuroscientific gaps, and the principles required to narrow the gap between artificial and biological intelligence.',
-    tags: ['Transformers', 'Neuroscience', 'Continual Learning', 'Causal Reasoning', 'Symbol Grounding'],
-    metaIcon: 'REF',
-    metaText: '66 references',
-    href: '/papers/ai-cognitive-replication/',
-    ctaLabel: 'Read evidence-backed synthesis',
-  },
-  {
-    id: 'paper-cognitive-load',
-    category: 'Evidence-Backed Synthesis',
-    title: 'Cognitive Load Optimization Through Adaptive Interface Design',
-    abstract:
-      'Investigation into how dynamic interface complexity affects working memory utilization and task completion rates. Measuring real-time cognitive load via behavioral proxies across NovaX user sessions.',
-    tags: ['Working Memory', 'UX Research', 'Cognitive Load', 'Adaptive UI'],
-    metaIcon: 'LAB',
-    metaText: 'In Progress',
-    ctaLabel: 'Coming Soon',
-    disabled: true,
-  },
-  {
-    id: 'paper-flow-state',
-    category: 'Evidence-Backed Synthesis',
-    title: 'Flow State Induction & Sustained Attention in Digital Environments',
-    abstract:
-      "Examining the neural and behavioral correlates of flow states within NovaX's gamified cognitive training paradigm. Analysis of session duration, error patterns, and self-reported engagement metrics.",
-    tags: ['Flow State', 'Attention', 'Gamification', 'Engagement'],
-    metaIcon: 'LAB',
-    metaText: 'In Progress',
-    ctaLabel: 'Coming Soon',
-    disabled: true,
   },
 ];
 
 export const benchmarks: BenchmarkItem[] = [
   {
-    id: 'benchmark-cognitive',
+    id: 'benchmark-vram',
     number: '01',
-    label: 'Core Metric',
-    title: 'Cognitive Performance Index',
+    label: 'Memory Law (Theorem 2A)',
+    title: 'Single-GPU Activation VRAM Cut',
     description:
-      'Composite score measuring problem-solving speed, pattern recognition accuracy, and multi-step reasoning across standardized cognitive tasks.',
-    metricValue: '--',
-    metricUnit: 'Data not available',
-    barClass: 'benchmark-card__bar-fill--purple',
-    barWidth: '0%',
-    status: 'Data collection pending; baseline setup in progress',
+      'Partitioning an identical 12-layer network from K = 1 (Global BP) to K = 6 eager local blocks cuts peak activation memory from 758.1 MB to 159.2 MB while running 11.5% faster via L2 cache locality.',
+    metricValue: '-79.0%',
+    metricUnit: '758.1 -> 159.2 MB',
+    barClass: 'benchmark-card__bar-fill--clay',
+    barWidth: '79%',
+    status: 'Verified on NVIDIA T4 (CF-2 rebound 3.45x confirmed)',
   },
   {
-    id: 'benchmark-speed',
+    id: 'benchmark-pipeline',
     number: '02',
-    label: 'Efficiency Metric',
-    title: 'Learning Acquisition Rate',
+    label: 'Multi-GPU Scaling (Theorem 3)',
+    title: 'Zero-Bubble Async T4x2 Speedup',
     description:
-      'Speed at which users acquire and demonstrate mastery of new cognitive patterns, measured by task accuracy over sessions.',
-    metricValue: '--',
-    metricUnit: 'Data not available',
-    barClass: 'benchmark-card__bar-fill--cyan',
-    barWidth: '0%',
-    status: 'Awaiting user cohort data; measurement pipeline staged',
+      'Eliminating cross-stage backward locks via local plasticity and FP16 ping-pong buffers cuts 2-GPU step latency from 41.82 ms (synchronous Global BP) down to 16.96 ms.',
+    metricValue: '2.47x',
+    metricUnit: '16.96 vs. 41.82 ms/step',
+    barClass: 'benchmark-card__bar-fill--ink',
+    barWidth: '88%',
+    status: 'Verified on Kaggle T4x2 (CF-3 bubble counterfactual)',
   },
   {
-    id: 'benchmark-retention',
+    id: 'benchmark-energy',
     number: '03',
-    label: 'Reliability Metric',
-    title: 'User Retention Rate',
+    label: 'Roofline Efficiency (Theorem 2B)',
+    title: 'Iso-Width Energy & Latency Gain',
     description:
-      'Percentage of users who consistently return and maintain active participation across defined time windows after initial onboarding.',
-    metricValue: '--',
-    metricUnit: 'Data not available',
-    barClass: 'benchmark-card__bar-fill--green',
-    barWidth: '0%',
-    status: 'Retention study not started; dataset unavailable',
+      'Packing parallel streams into contiguous cuBLAS batched GEMMs with whole-step CUDA Graphs delivers 0.73-0.79x latency and up to 1.39x samples/Joule measured via NVML hardware counters.',
+    metricValue: '1.39x',
+    metricUnit: 'samples/Joule at d = 256',
+    barClass: 'benchmark-card__bar-fill--clay',
+    barWidth: '73%',
+    status: 'Verified via NVML hardware energy counters',
   },
   {
-    id: 'benchmark-completion',
+    id: 'benchmark-orthogonality',
     number: '04',
-    label: 'Execution Metric',
-    title: 'Completion Rate',
+    label: 'Representation Quality',
+    title: 'Stream Orthogonality & Pose R2',
     description:
-      'Share of assigned cognitive activities completed end-to-end by users, tracked across sessions to evaluate training consistency.',
-    metricValue: '--',
-    metricUnit: 'Data not available',
-    barClass: 'benchmark-card__bar-fill--amber',
-    barWidth: '0%',
-    status: 'Completion benchmark setup in progress; awaiting cohort data',
-  },
-  {
-    id: 'benchmark-focus',
-    number: '05',
-    label: 'Attention Metric',
-    title: 'Focus Rate',
-    description:
-      'User focus endurance measured through sustained attention signals such as uninterrupted task streaks, distraction drops, and session stability.',
-    metricValue: '--',
-    metricUnit: 'Data not available',
-    barClass: 'benchmark-card__bar-fill--blue',
-    barWidth: '0%',
-    status: 'Focus endurance analysis pipeline staged for rollout',
+      'On parameter-matched AffCIFAR-10 v2 (1.26M vs. 1.31M params), live 2-GPU async training incurs zero accuracy loss (77.58% vs. 77.19% 1-GPU) and surpasses Global BP on pose regression (+0.325 vs. +0.318 R2).',
+    metricValue: '0.057',
+    metricUnit: 'CKA (94.3% orthogonal)',
+    barClass: 'benchmark-card__bar-fill--sage',
+    barWidth: '94%',
+    status: 'Verified on AffCIFAR-10 v2 (30 epochs, 2-GPU async)',
   },
 ];
 
 export const methodologySteps: MethodologyStep[] = [
   {
-    step: 'Step 01',
-    title: 'Scientific Synthesis & Publication',
+    step: '01 / Formal',
+    title: 'First-Principles Proof in Lean 4',
     description:
-      'Every research initiative starts with a comprehensive review of peer-reviewed literature. We produce citation-mapped scientific syntheses with traceable references from venues like Nature, Science, NeurIPS, and Cell, then publish them as our scientific foundation.',
+      'Before writing training loops, we formalize isolation, memory bounds, roofline laws, and pipeline utilization in pure Lean 4 with zero sorry and cross-check every bound symbolically.',
   },
   {
-    step: 'Step 02',
-    title: 'Internal Data Collection',
+    step: '02 / Silicon',
+    title: 'Hardware-Native Kernel Design',
     description:
-      "We instrument NovaX's platform to collect anonymized behavioral and performance data. Metrics include task completion rates, error patterns, session engagement, and cognitive load proxies, all collected with IRB-equivalent ethical standards.",
+      'We align biological and algorithmic primitives directly to GPU memory hierarchies—replacing fragmented kernels with batched Tensor Core GEMMs, static FP16, and whole-step CUDA Graphs.',
   },
   {
-    step: 'Step 03',
-    title: 'Statistical Analysis & Validation',
+    step: '03 / Falsification',
+    title: 'Counterfactual Kill Criteria',
     description:
-      'Collected data undergoes rigorous statistical analysis including significance testing, effect size estimation, and cross-validation across user cohorts. We use pre-registered analysis plans to prevent p-hacking.',
+      'Every claim is stress-tested by deliberately breaking its governing mechanism on live hardware (CF-1 through CF-4). Components that fail strict memory, speed, or learning gates are rejected.',
   },
   {
-    step: 'Step 04',
-    title: 'Benchmark Reporting & Iteration',
+    step: '04 / Applied',
+    title: 'Translation into Realms',
     description:
-      'We report benchmark outcomes as processed performance summaries and use the findings to guide continuous product iteration across cohorts and use cases.',
+      'Verified architectures feed directly into Realms—Enemites’ AI world model and adaptive simulation platform—so product capability is grounded in reproducible scientific evidence.',
   },
 ];
