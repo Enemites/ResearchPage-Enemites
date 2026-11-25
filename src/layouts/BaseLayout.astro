@@ -13,7 +13,7 @@ interface Props {
   ogDescription?: string;
   ogType?: 'website' | 'article';
   ogUrl?: string;
-  activeNav?: 'foundational';
+  activeNav?: 'publications' | 'methodology';
   navScrolled?: boolean;
   footerLinks?: FooterLink[];
 }
@@ -29,10 +29,12 @@ const {
   activeNav,
   navScrolled = false,
   footerLinks = [
-    { href: 'https://novaxarena.tech', label: 'Main Site', id: 'footer-main-site', external: true },
-    { href: '#foundational', label: 'Evidence-backed syntheses' },
+    { href: 'https://enemites.com/profile', label: 'Enemites Profile', id: 'footer-profile', external: true },
+    { href: 'https://enemites.com/realms', label: 'Realms', id: 'footer-realms', external: true },
+    { href: '#publications', label: 'Publications' },
     { href: '#benchmarks', label: 'Benchmarks' },
     { href: '#methodology', label: 'Methodology' },
+    { href: 'mailto:support@enemites.com', label: 'Contact', external: true },
   ],
 } = Astro.props;
 ---
@@ -45,12 +47,16 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     {keywords && <meta name="keywords" content={keywords} />}
-
     <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={ogDescription} />
     <meta property="og:type" content={ogType} />
     {ogUrl && <meta property="og:url" content={ogUrl} />}
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="icon" type="image/svg+xml" href={faviconUrl.src} />
   </head>
   <body>
