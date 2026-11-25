@@ -2,20 +2,21 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const footerLinks = [
-  { href: 'https://novaxarena.tech', label: 'Main Site', external: true },
+  { href: 'https://enemites.com/profile', label: 'Enemites Profile', external: true },
+  { href: 'https://enemites.com/realms', label: 'Realms', external: true },
   { href: '/', label: 'Research Hub' },
 ];
 ---
 
 <BaseLayout
-  title="Comment Moderation | NovaX Research"
-  description="Moderate paper and synthesis comments for NovaX Research."
+  title="Comment Moderation | Enemites Research"
+  description="Moderate publication comments for Enemites Research."
   navScrolled={true}
   footerLinks={footerLinks}
 >
   <main class="admin-comments-page">
     <section class="admin-comments">
-      <a href="/" class="paper-page__back">Back to Research Hub</a>
+      <a href="/" class="paper-page__back">&larr; Back to Research Hub</a>
 
       <div class="admin-comments__eyebrow">
         <span class="paper-card__category-dot"></span>
@@ -23,7 +24,7 @@ const footerLinks = [
       </div>
 
       <header class="admin-comments__header">
-        <h1>Paper Comment Review</h1>
+        <h1>Publication Comment Review</h1>
         <p>Approve or reject submitted reader comments before they appear publicly.</p>
       </header>
 
@@ -76,7 +77,7 @@ const footerLinks = [
       error?: string;
     }
 
-    const tokenStorageKey = 'novax-comment-admin-token';
+    const tokenStorageKey = 'enemites-comment-admin-token';
     const tokenForm = document.querySelector<HTMLFormElement>('#comment-admin-token-form');
     const tokenInput = document.querySelector<HTMLInputElement>('#comment-admin-token');
     const statusElement = document.querySelector<HTMLElement>('#comment-admin-status');
