@@ -6,6 +6,7 @@ interface Props {
 }
 
 const { paper } = Astro.props;
+const linkId = paper.id === 'paper-ai-cognitive' ? 'link-ai-cognitive' : 'link-' + paper.id;
 ---
 
 <article class="paper-card animate-on-scroll" id={paper.id}>
@@ -31,7 +32,7 @@ const { paper } = Astro.props;
           <span class="paper-card__link-arrow">&gt;</span>
         </span>
       ) : (
-        <a href={paper.href} class="paper-card__link" id="link-ai-cognitive">
+        <a href={paper.href} class="paper-card__link" id={linkId}>
           {paper.ctaLabel}
           <span class="paper-card__link-arrow">&gt;</span>
         </a>
