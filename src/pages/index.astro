@@ -9,112 +9,168 @@ import { benchmarks, methodologySteps, researchPapers, stats } from '../content/
 ---
 
 <BaseLayout
-  title="Nova Research"
-  description="Explore the scientific research, internal benchmarks, and peer-reviewed foundations behind NovaX's cognitive performance platform. 66+ references from Nature, NeurIPS, Cell, and more."
-  keywords="NovaX, cognitive performance, AI research, brain optimization, scientific research, benchmarks"
-  ogTitle="NovaX Research: Scientific Foundations"
-  ogDescription="Peer-reviewed research, internal benchmarks, and the scientific thesis behind NovaX's cognitive performance technology."
-  ogUrl="https://research.novax.tech"
-  activeNav="foundational"
+  title="Enemites Research"
+  description="Foundational AI systems, GPU-native local plasticity, and world-model research from Enemites—formally proved in Lean 4, empirically verified on silicon, and built to power Realms."
+  keywords="Enemites, Enemites Research, Realms, SPRINT-LP, local plasticity, world models, Lean 4, GPU kernels, AI research"
+  ogTitle="Enemites Research — Ground Truth for Next-Generation AI Systems"
+  ogDescription="Falsification-first research on GPU-native local plasticity, world models, and adaptive simulation powering Realms."
+  ogUrl="https://research.enemites.com"
+  activeNav="publications"
 >
-  <section class="hero" id="hero">
-    <div class="hero__bg" aria-hidden="true"></div>
+  <main class="home-page">
+    <section class="hero" id="hero">
+      <div class="container">
+        <div class="hero__grid">
+          <div class="hero__heading">
+            <p class="hero__eyebrow">Enemites Research Lab</p>
+            <h1 class="hero__title">
+              Foundational research built for <span class="serif-accent">ground truth.</span>
+            </h1>
+          </div>
 
-    <div class="hero__content">
-      <div class="hero__badge">
-        <span class="hero__badge-dot"></span>
-        Scientific Research Division
+          <div class="hero__description">
+            <p class="hero__subtitle">
+              We investigate GPU-native local plasticity, parallel neural architectures, and world models—proving core
+              bounds formally in Lean 4 and falsifying assumptions on live silicon before deploying into Realms.
+            </p>
+            <div class="hero__actions">
+              <a href="/papers/sprint-lp/" class="btn btn--primary" id="hero-cta-papers">
+                <span>Read SPRINT-LP Preprint</span>
+                <span class="btn__arrow">&rarr;</span>
+              </a>
+              <a
+                href="https://enemites.com/realms"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hero__text-link"
+                id="hero-cta-realms"
+              >
+                <span>Explore Realms</span>
+                <span aria-hidden="true">&nearr;</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="hero__art" aria-hidden="true">
+            <svg viewBox="0 0 560 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero__svg">
+              <g stroke="#272C27" stroke-opacity="0.16" stroke-width="1">
+                <path d="M24 340 C 130 320, 180 230, 280 200 C 380 170, 440 120, 536 60" />
+                <path d="M24 310 C 135 292, 190 222, 280 200 C 370 178, 435 138, 536 92" />
+                <path d="M24 280 C 140 264, 196 216, 280 200 C 364 184, 430 156, 536 124" />
+                <path d="M24 250 C 144 238, 202 210, 280 200 C 358 190, 425 174, 536 156" />
+                <path d="M24 220 C 148 214, 208 205, 280 200 C 352 195, 420 192, 536 188" />
+                <path d="M24 190 C 148 192, 208 198, 280 200 C 352 202, 420 210, 536 220" />
+                <path d="M24 160 C 144 168, 202 192, 280 200 C 358 208, 425 228, 536 252" />
+                <path d="M24 130 C 140 142, 196 184, 280 200 C 364 216, 430 248, 536 284" />
+                <path d="M24 100 C 135 116, 190 176, 280 200 C 370 224, 435 268, 536 316" />
+                <path d="M24 70 C 130 90, 180 168, 280 200 C 380 232, 440 290, 536 348" />
+              </g>
+              <g stroke="#A64B31" stroke-opacity="0.78" stroke-width="1.4">
+                <path d="M36 200 C 128 200, 186 200, 248 200 C 316 200, 384 128, 524 104" />
+                <path d="M36 200 C 128 200, 186 200, 248 200 C 316 200, 384 272, 524 296" />
+              </g>
+              <circle cx="248" cy="200" r="38" stroke="#D5D0C4" stroke-width="1" fill="#F5F2EB" fill-opacity="0.88" />
+              <circle cx="248" cy="200" r="6" fill="#A64B31" />
+              <line x1="248" y1="42" x2="248" y2="152" stroke="#D5D0C4" stroke-width="1" stroke-dasharray="3 4" />
+              <line x1="248" y1="248" x2="248" y2="358" stroke="#D5D0C4" stroke-width="1" stroke-dasharray="3 4" />
+              <text x="56" y="186" fill="#62675E" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="1.2">SHARED STEM</text>
+              <text x="394" y="92" fill="#A64B31" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="1.2">VENTRAL // INV</text>
+              <text x="394" y="318" fill="#A64B31" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="1.2">DORSAL // VAR</text>
+              <text x="248" y="378" fill="#62675E" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle" letter-spacing="1.4">HARD-ISOLATED BIFURCATION · LEAN 4 VERIFIED</text>
+            </svg>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <h1 class="hero__title">
-        <span>The Science Behind</span>
-        <span class="gradient-text">Cognitive Excellence</span>
-      </h1>
-
-      <p class="hero__subtitle">
-        Peer-reviewed research, internal benchmarks, and rigorous scientific methodology powering the next generation of
-        human learning.
-      </p>
-
-      <div class="hero__actions">
-        <a href="#foundational" class="btn btn--primary" id="hero-cta-papers">
-          <span>Explore Research</span>
-        </a>
-        <a href="#whitepaper" class="btn btn--outline" id="hero-cta-whitepaper">
-          <span>Read Whitepaper</span>
-          <span class="btn__icon">PDF</span>
-        </a>
+    <section class="stats" id="stats">
+      <div class="container">
+        <div class="stats__grid">
+          {stats.map((item) => <StatCard item={item} />)}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="stats" id="stats">
-    <div class="container">
-      <div class="stats__grid">
-        {stats.map((item) => <StatCard item={item} />)}
+    <section class="section" id="publications">
+      <div class="container">
+        <SectionHeader
+          label="Published Research"
+          titleStart="Latest Technical"
+          titleAccent="Publication"
+          description="Our active research output—formally verified, counterfactual-tested, and documented with reproducible empirical telemetry."
+        />
+
+        <div class="papers__list">
+          {researchPapers.map((paper) => <PaperCard paper={paper} featured={true} />)}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section" id="foundational">
-    <div class="container">
-      <SectionHeader
-        label="Foundational Research"
-        titleStart="Evidence-Backed Syntheses &"
-        titleAccent="Core Assumptions"
-        description="Peer-reviewed research from credible venues that forms the scientific foundation of NovaX. Each item is an evidence-backed synthesis: claims are citation-mapped with traceable references."
-      />
+    <section class="section section--panel" id="benchmarks">
+      <div class="container">
+        <SectionHeader
+          label="Empirical Telemetry"
+          titleStart="Hardware-Verified"
+          titleAccent="Benchmarks"
+          description="Measured directly on Kaggle NVIDIA T4 and T4x2 silicon with NVML energy counters and strict counterfactual ablations."
+        />
 
-      <div class="papers__grid">
-        {researchPapers.map((paper) => <PaperCard paper={paper} />)}
+        <div class="benchmarks__grid">
+          {benchmarks.map((item) => <BenchmarkCard item={item} />)}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section benchmarks" id="benchmarks">
-    <div class="container">
-      <SectionHeader
-        label="Internal Benchmarks"
-        titleStart="Performance Metrics &"
-        titleAccent="Cognitive Measurements"
-        description="Internal data from user measurements, cognitive task analysis, and brain performance benchmarks across NovaX user cohorts."
-      />
+    <section class="section" id="methodology">
+      <div class="container">
+        <SectionHeader
+          label="Research Methodology"
+          titleStart="Falsification Before"
+          titleAccent="Scale"
+          description="Every hypothesis at Enemites must survive formal mathematical bounds and hardware kill criteria before it earns a place in Realms."
+        />
 
-      <div class="benchmarks__grid">
-        {benchmarks.map((item) => <BenchmarkCard item={item} />)}
+        <div class="methodology__grid">
+          {methodologySteps.map((step) => <MethodologyStep step={step} />)}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section" id="methodology">
-    <div class="container">
-      <SectionHeader
-        label="Research Methodology"
-        titleStart="How We Conduct"
-        titleAccent="Our Research"
-        description="Our research methodology combines rigorous scientific standards with real-world user data to validate cognitive enhancement claims."
-      />
-
-      <div class="methodology__timeline">
-        {methodologySteps.map((step) => <MethodologyStep step={step} />)}
+    <section class="section section--compact" id="realms">
+      <div class="container">
+        <div class="realms-banner animate-on-scroll">
+          <div class="realms-banner__content">
+            <p class="realms-banner__eyebrow">Applied Infrastructure</p>
+            <h2 class="realms-banner__title">
+              From foundational models to <span class="serif-accent">Realms.</span>
+            </h2>
+            <p class="realms-banner__description">
+              Realms is Enemites’ AI world-model simulation environment—translating our research on adaptive neural
+              systems into interactive worlds where every decision produces grounded consequences.
+            </p>
+          </div>
+          <div class="realms-banner__actions">
+            <a
+              href="https://enemites.com/realms"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn--primary"
+              id="realms-cta"
+            >
+              <span>Explore Realms</span>
+              <span class="btn__arrow">&nearr;</span>
+            </a>
+            <a
+              href="https://enemites.com/profile"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn--ghost-light"
+            >
+              <span>About Enemites</span>
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
-
-  <section class="whitepaper" id="whitepaper">
-    <div class="container">
-      <div class="whitepaper__card animate-on-scroll">
-        <div class="whitepaper__icon">DOC</div>
-        <h2 class="whitepaper__title">NovaX <span class="gradient-text">Whitepaper</span></h2>
-        <p class="whitepaper__description">
-          The complete technical thesis behind NovaX: our core assumptions, architectural decisions, and the
-          neuroscientific principles driving cognitive performance optimization.
-        </p>
-        <a href="#" class="btn btn--void" id="whitepaper-download">
-          <span>Coming Soon</span>
-          <span class="btn__icon">SOON</span>
-        </a>
-      </div>
-    </div>
-  </section>
+    </section>
+  </main>
 </BaseLayout>
