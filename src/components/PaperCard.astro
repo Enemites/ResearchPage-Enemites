@@ -3,40 +3,63 @@ import type { ResearchPaper } from '../content/home';
 
 interface Props {
   paper: ResearchPaper;
+  featured?: boolean;
 }
 
-const { paper } = Astro.props;
-const linkId = paper.id === 'paper-ai-cognitive' ? 'link-ai-cognitive' : 'link-' + paper.id;
+const { paper, featured = false } = Astro.props;
+const linkId = 'link-' + paper.id;
 ---
 
-<article class="paper-card animate-on-scroll" id={paper.id}>
-  <div class="paper-card__category">
-    <span class="paper-card__category-dot"></span>
-    {paper.category}
-  </div>
-  <h3 class="paper-card__title">{paper.title}</h3>
-  {paper.author && <p class="paper-card__author">{paper.author}</p>}
-  <p class="paper-card__abstract">{paper.abstract}</p>
-  <div class="paper-card__tags">
-    {paper.tags.map((tag) => <span class="paper-card__tag">{tag}</span>)}
-  </div>
-  <div class="paper-card__meta">
+<article class:list={['paper-card', { 'paper-card--featured': featured }, 'animate-on-scroll']} id={paper.id}>
+  <div class="paper-card__aside">
+    <div class="paper-card__category">
+      <span class="paper-card__category-dot"></span>
+      {paper.category}
+    </div>
+    {paper.date && <div class="paper-card__date">{paper.date}</div>}
+    {paper.author && <p class="paper-card__author">{paper.author}</p>}
     <div class="paper-card__refs">
       <span class="paper-card__refs-icon">{paper.metaIcon}</span>
-      {paper.metaText}
+      <span>{paper.metaText}</span>
     </div>
     {
-      paper.disabled ? (
-        <span class="paper-card__link paper-card__link--disabled">
-          {paper.ctaLabel}
-          <span class="paper-card__link-arrow">&gt;</span>
-        </span>
-      ) : (
-        <a href={paper.href} class="paper-card__link" id={linkId}>
-          {paper.ctaLabel}
-          <span class="paper-card__link-arrow">&gt;</span>
-        </a>
+      paper.highlights && paper.highlights.length > 0 && (
+        <dl class="paper-card__highlights">
+          {paper.highlights.map((h) => (
+            <div class="paper-card__highlight">
+              <dt>{h.label}</dt>
+              <dd>{h.value}</dd>
+            </div>
+          ))}
+        </dl>
       )
     }
+  </div>
+
+  <div class="paper-card__body">
+    <h3 class="paper-card__title">
+      {paper.href && !paper.disabled ? <a href={paper.href}>{paper.title}</a> : paper.title}
+    </h3>
+    <p class="paper-card__abstract">{paper.abstract}</p>
+
+    <div class="paper-card__tags">
+      {paper.tags.map((tag) => <span class="paper-card__tag">{tag}</span>)}
+    </div>
+
+    <div class="paper-card__meta">
+      {
+        paper.disabled ? (
+          <span class="paper-card__link paper-card__link--disabled">
+            {paper.ctaLabel}
+            <span class="paper-card__link-arrow">&rarr;</span>
+          </span>
+        ) : (
+          <a href={paper.href} class="paper-card__link" id={linkId}>
+            <span>{paper.ctaLabel}</span>
+            <span class="paper-card__link-arrow">&rarr;</span>
+          </a>
+        )
+      }
+    </div>
   </div>
 </article>
