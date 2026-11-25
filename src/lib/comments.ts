@@ -31,7 +31,7 @@ export interface ValidationResult<T> {
   error?: string;
 }
 
-const ALLOWED_PAPER_SLUGS = new Set(['ai-cognitive-replication']);
+const ALLOWED_PAPER_SLUGS = new Set(['ai-cognitive-replication', 'sprint-lp']);
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 let cachedSql: ReturnType<typeof neon> | null = null;
