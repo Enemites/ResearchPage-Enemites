@@ -55,6 +55,12 @@ function initMobileMenu(): void {
   const mobileMenu = document.querySelector<HTMLElement>('.nav__mobile-menu');
   if (!hamburger || !mobileMenu) return;
 
+  const closeMenu = (): void => {
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('active');
+    hamburger.setAttribute('aria-expanded', 'false');
+  };
+
   hamburger.addEventListener('click', () => {
     const isOpen = mobileMenu.classList.toggle('open');
     hamburger.classList.toggle('active', isOpen);
@@ -62,11 +68,13 @@ function initMobileMenu(): void {
   });
 
   mobileMenu.querySelectorAll<HTMLAnchorElement>('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
-      hamburger.classList.remove('active');
-      hamburger.setAttribute('aria-expanded', 'false');
-    });
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && mobileMenu.classList.contains('open')) {
+      closeMenu();
+    }
   });
 }
 
@@ -111,6 +119,11 @@ function initSmoothScroll(): void {
       event.preventDefault();
       scrollToAnchorTarget(target, true);
       highlightReferenceTableRow(target);
+
+      const mobileToc = anchor.closest<HTMLDetailsElement>('.paper-toc-mobile');
+      if (mobileToc) {
+        mobileToc.open = false;
+      }
     });
   });
 }
@@ -187,7 +200,7 @@ interface TocSection {
 }
 
 function initTocActiveState(): void {
-  const tocLinks = document.querySelectorAll<HTMLAnchorElement>('.paper-toc__link');
+  const tocLinks = document.querySelectorAll<HTMLAnchorElement>('.paper-toc .paper-toc__link');
   const sections: TocSection[] = [];
 
   tocLinks.forEach((link) => {
@@ -221,6 +234,57 @@ function initTocActiveState(): void {
   sections.forEach(({ section }) => observer.observe(section));
 }
 
+function initReadingProgress(): void {
+  const bar = document.querySelector<HTMLElement>('[data-reading-progress]');
+  const article = document.querySelector<HTMLElement>('#paper-body');
+  if (!bar || !article) return;
+
+  const syncProgress = (): void => {
+    const rect = article.getBoundingClientRect();
+    const total = Math.max(1, article.offsetHeight - window.innerHeight * 0.7);
+    const scrolled = Math.min(Math.max(-rect.top + 120, 0), total);
+    const pct = Math.min(100, Math.max(0, (scrolled / total) * 100));
+    bar.style.width = `${pct.toFixed(1)}%`;
+  };
+
+  syncProgress();
+  window.addEventListener('scroll', syncProgress, { passive: true });
+  window.addEventListener('resize', syncProgress, { passive: true });
+}
+
+function initPaperActions(): void {
+  document.querySelectorAll<HTMLButtonElement>('[data-print-paper]').forEach((button) => {
+    button.addEventListener('click', () => {
+      window.print();
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('[data-copy-bibtex]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const targetId = button.getAttribute('data-copy-bibtex');
+      const source = targetId ? document.getElementById(targetId) : null;
+      const text = source?.textContent?.trim();
+      if (!text) return;
+
+      const label = button.querySelector<HTMLElement>('[data-copy-label]') ?? button;
+      const original = label.textContent ?? 'Copy BibTeX';
+
+      try {
+        await navigator.clipboard.writeText(text);
+        label.textContent = 'Copied!';
+        window.setTimeout(() => {
+          label.textContent = original;
+        }, 1800);
+      } catch {
+        label.textContent = 'Select below';
+        window.setTimeout(() => {
+          label.textContent = original;
+        }, 1800);
+      }
+    });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initNavScroll();
@@ -229,4 +293,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollToHashOnLoad();
   initCounterAnimations();
   initTocActiveState();
+  initReadingProgress();
+  initPaperActions();
 });
