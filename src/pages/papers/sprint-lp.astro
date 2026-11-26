@@ -18,27 +18,72 @@ const footerLinks = [
   navScrolled={true}
   footerLinks={footerLinks}
 >
+  <div class="paper-progress" aria-hidden="true">
+    <div class="paper-progress__bar" data-reading-progress></div>
+  </div>
+
   <main class="paper-page">
     <div class="container">
       <header class="paper-page__header">
-        <a href="/" class="paper-page__back" id="paper-back-link">&larr; Back to Research Hub</a>
-        <div class="paper-page__category">
-          <span class="paper-card__category-dot"></span>
-          Technical Preprint / Formal Lean 4 + T4&times;2 Proof
+        <div class="paper-page__topbar">
+          <a href="/" class="paper-page__back" id="paper-back-link">&larr; Back to Research Hub</a>
+          <div class="paper-page__category">
+            <span class="paper-card__category-dot"></span>
+            Technical Preprint &middot; Formal Lean 4 + T4&times;2 Proof
+          </div>
         </div>
+
         <h1 class="paper-page__title">
           SPRINT-LP: GPU-Native Local Plasticity with Hard-Isolated Parallel Streams
         </h1>
-        <p class="paper-page__author">Enemites Research Team &middot; M.D. Nafis</p>
-        <div class="paper-page__meta">
-          <div class="paper-page__meta-item">DATE November 25, 2026</div>
-          <div class="paper-page__meta-item">REF 15 References</div>
-          <div class="paper-page__meta-item">PROOF Lean 4 + Kaggle NVIDIA T4&times;2</div>
+
+        <dl class="paper-page__meta-grid">
+          <div class="paper-page__meta-cell">
+            <dt>Authors</dt>
+            <dd>Enemites Research Team (M.D. Nafis)</dd>
+          </div>
+          <div class="paper-page__meta-cell">
+            <dt>Published</dt>
+            <dd>November 25, 2026</dd>
+          </div>
+          <div class="paper-page__meta-cell">
+            <dt>Verification</dt>
+            <dd>Lean 4 (0 sorry) + NVIDIA T4&times;2</dd>
+          </div>
+          <div class="paper-page__meta-cell">
+            <dt>References</dt>
+            <dd>15 Cited Works</dd>
+          </div>
+        </dl>
+
+        <div class="paper-page__actions">
+          <button type="button" class="paper-page__action-btn" data-copy-bibtex="sprint-lp-bibtex">
+            <span data-copy-label>Copy BibTeX</span>
+          </button>
+          <button type="button" class="paper-page__action-btn" data-print-paper>
+            <span>Print / Save PDF</span>
+          </button>
         </div>
       </header>
 
+      <details class="paper-toc-mobile">
+        <summary>Table of Contents</summary>
+        <div class="paper-toc-mobile__links">
+          <a href="#abstract" class="paper-toc__link">Abstract</a>
+          <a href="#sec1" class="paper-toc__link">1. Introduction &amp; Falsification</a>
+          <a href="#sec2" class="paper-toc__link">2. Formal Foundations (Lean 4)</a>
+          <a href="#sec3" class="paper-toc__link">3. SPRINT-LP v5 Architecture</a>
+          <a href="#sec4" class="paper-toc__link">4. Empirical Validation</a>
+          <a href="#sec4-1" class="paper-toc__link paper-toc__link--sub">4.1 Single-GPU L2 Locality</a>
+          <a href="#sec4-2" class="paper-toc__link paper-toc__link--sub">4.2 Counterfactual Matrix</a>
+          <a href="#sec4-3" class="paper-toc__link paper-toc__link--sub">4.3 Unified Natural Image Proof</a>
+          <a href="#sec5" class="paper-toc__link">5. Conclusion</a>
+          <a href="#sec6" class="paper-toc__link">6. References</a>
+        </div>
+      </details>
+
       <div class="paper-page__layout">
-        <aside class="paper-toc">
+        <aside class="paper-toc" aria-label="Table of contents">
           <div class="paper-toc__title">Contents</div>
           <a href="#abstract" class="paper-toc__link active">Abstract</a>
           <a href="#sec1" class="paper-toc__link">1. Introduction &amp; Falsification</a>
@@ -53,9 +98,29 @@ const footerLinks = [
         </aside>
 
         <article class="paper-content" id="paper-body">
+          <div class="paper-kpi-strip" aria-label="Key empirical results">
+            <div class="paper-kpi">
+              <div class="paper-kpi__value">-79.0%</div>
+              <div class="paper-kpi__label">Peak activation VRAM (K=6 vs. Global BP)</div>
+            </div>
+            <div class="paper-kpi">
+              <div class="paper-kpi__value">-11.5%</div>
+              <div class="paper-kpi__label">Faster 1-GPU step at 100% identical params</div>
+            </div>
+            <div class="paper-kpi">
+              <div class="paper-kpi__value">2.47&times;</div>
+              <div class="paper-kpi__label">2-GPU zero-bubble async speedup (T4&times;2)</div>
+            </div>
+            <div class="paper-kpi">
+              <div class="paper-kpi__value">0.057</div>
+              <div class="paper-kpi__label">Stream CKA (94.3% orthogonal, 0 acc loss)</div>
+            </div>
+          </div>
+
           <section id="abstract" class="paper-abstract">
+            <div class="paper-abstract__label">Abstract</div>
             <p>
-              <strong>Abstract.</strong> Biologically inspired mechanisms such as hard-isolated parallel processing streams and local synaptic plasticity are widely considered incompatible with modern GPU accelerators compared to end-to-end global backpropagation (Global BP). Across five falsification-driven research iterations (v1&ndash;v5), we refute this assumption both formally in <strong>Lean 4</strong> and empirically on <strong>Kaggle NVIDIA T4&times;2 silicon</strong>. We introduce <strong>SPRINT-LP</strong> (<em>Stream-Packed Residual Information-Preserving Native Tensor Local Plasticity</em>), uniting pure cuBLAS batched GEMM stream packing (<code>torch.baddbmm</code>), whole-step <code>torch.cuda.CUDAGraph</code> capture with static FP16 scaling and fused AdamW, and a bio-faithful <em>Shared V1/V2 Stem + Late Bifurcation + Deep-MAN++</em> topology.
+              Biologically inspired mechanisms such as hard-isolated parallel processing streams and local synaptic plasticity are widely considered incompatible with modern GPU accelerators compared to end-to-end global backpropagation (Global BP). Across five falsification-driven research iterations (v1&ndash;v5), we refute this assumption both formally in <strong>Lean 4</strong> and empirically on <strong>Kaggle NVIDIA T4&times;2 silicon</strong>. We introduce <strong>SPRINT-LP</strong> (<em>Stream-Packed Residual Information-Preserving Native Tensor Local Plasticity</em>), uniting pure cuBLAS batched GEMM stream packing (<code>torch.baddbmm</code>), whole-step <code>torch.cuda.CUDAGraph</code> capture with static FP16 scaling and fused AdamW, and a bio-faithful <em>Shared V1/V2 Stem + Late Bifurcation + Deep-MAN++</em> topology.
             </p>
             <p>
               Our experiments establish four decisive results: (1) on a <strong>single GPU with 100% identical parameters</strong> (<code>L = 12, M = 3, d = 128</code>), increasing local partitioning from <code>K = 1</code> (Global BP) to <code>K = 6</code> reduces peak activation VRAM by <strong>79.0%</strong> (<code>758.1 &rarr; 159.2 MB</code>) while running <strong>11.5% faster</strong> (<code>54.71 &rarr; 48.43 ms/step</code>) via L2 cache locality; (2) at matched representation width (Iso-Width <code>D = 768</code>), <code>M = 4</code> parallel streams achieve <strong>0.79&times; latency</strong> and <strong>1.28&times; energy efficiency</strong> (up to <strong>0.73&times; latency</strong> and <strong>1.39&times; samples/Joule</strong> at <code>d = 256</code>); (3) on <strong>2-GPU Kaggle T4&times;2</strong> with identical parameters, our <em>Zero-Bubble Async Local Pipeline</em> delivers a <strong>2.47&times; real wall-clock speedup</strong> (<code>16.96</code> vs. <code>41.82 ms/step</code>); and (4) on parameter-matched natural image multi-prediction (<code>AffCIFAR-10 v2</code>, ~1.26M vs. 1.31M parameters), live 2-GPU async training incurs <strong>zero accuracy degradation</strong> (<code>77.58%</code> vs. <code>77.19%</code> on 1 GPU), <strong>outperforms Global BP on variant pose prediction</strong> (<code>+0.325</code> vs. <code>+0.318</code> R<sup>2</sup>; <code>15.3&deg;</code> vs. <code>16.2&deg;</code> angular MAE), and achieves clean stream orthogonality (<code>CKA = 0.057</code>).
@@ -64,28 +129,30 @@ const footerLinks = [
 
           <h2 id="sec1">1. Introduction and Five-Iteration Falsification Trajectory</h2>
           <p>
-            Modern deep learning relies predominantly on homogeneous backbones trained end-to-end with global backpropagation. When forced to optimize conflicting <em>multi-prediction</em> objectives simultaneously, such as class-level <em>invariance</em> alongside continuous geometric pose <em>variance</em>, shared parameters suffer destructive gradient interference (<code>cos(&nabla;L<sub>inv</sub>, &nabla;L<sub>var</sub>) &lt; 0</code>) <a href="#ref1">[1]</a> and feature superposition. In contrast, the primate visual cortex shares early orientation and contour processing in V1/V2 before bifurcating into anatomically segregated <strong>Ventral</strong> ("what", invariant) and <strong>Dorsal</strong> ("where/how", variant) streams coordinated via lateral modulation <a href="#ref2">[2]</a> <a href="#ref3">[3]</a>.
+            Modern deep learning relies predominantly on homogeneous backbones trained end-to-end with global backpropagation. When forced to optimize conflicting <em>multi-prediction</em> objectives simultaneously, such as class-level <em>invariance</em> alongside continuous geometric pose <em>variance</em>, shared parameters suffer destructive gradient interference (<code>cos(&nabla;L<sub>inv</sub>, &nabla;L<sub>var</sub>) &lt; 0</code>) <a class="paper-cite" href="#ref1">[1]</a> and feature superposition. In contrast, the primate visual cortex shares early orientation and contour processing in V1/V2 before bifurcating into anatomically segregated <strong>Ventral</strong> ("what", invariant) and <strong>Dorsal</strong> ("where/how", variant) streams coordinated via lateral modulation <a class="paper-cite" href="#ref2">[2]</a><a class="paper-cite" href="#ref3">[3]</a>.
           </p>
           <p>
-            Translating parallel streams and local plasticity onto silicon GPUs has historically failed wall-clock and memory criteria due to four hardware mismatches: (i) Python stream loops or narrow grouped convolutions (<code>groups=M</code>) causing cuDNN kernel fragmentation; (ii) iterative settling loops (20&ndash;50&times; slower) in energy-based predictive coding; (iii) heavy pixel-reconstruction auxiliary decoders <a href="#ref4">[4]</a> that erase activation VRAM savings; and (iv) deferred global <code>.backward()</code> calls or per-block <code>GradScaler</code> host-device synchronizations.
+            Translating parallel streams and local plasticity onto silicon GPUs has historically failed wall-clock and memory criteria due to four hardware mismatches: (i) Python stream loops or narrow grouped convolutions (<code>groups=M</code>) causing cuDNN kernel fragmentation; (ii) iterative settling loops (20&ndash;50&times; slower) in energy-based predictive coding; (iii) heavy pixel-reconstruction auxiliary decoders <a class="paper-cite" href="#ref4">[4]</a> that erase activation VRAM savings; and (iv) deferred global <code>.backward()</code> calls or per-block <code>GradScaler</code> host-device synchronizations.
           </p>
           <p>
-            Rather than relying on unverified intuition, the Enemites Research Team executed five consecutive falsification-first empirical iterations (v1&ndash;v5) on Kaggle NVIDIA T4 GPUs (Turing <code>sm_75</code>, 40 SMs, 65 TFLOPS FP16 Tensor Core, 320 GB/s GDDR6, 70 W TDP) <a href="#ref10">[10]</a>, rejecting every component that failed strict hardware or learning kill criteria (Table 1).
+            Rather than relying on unverified intuition, the Enemites Research Team executed five consecutive falsification-first empirical iterations (v1&ndash;v5) on Kaggle NVIDIA T4 GPUs (Turing <code>sm_75</code>, 40 SMs, 65 TFLOPS FP16 Tensor Core, 320 GB/s GDDR6, 70 W TDP) <a class="paper-cite" href="#ref10">[10]</a>, rejecting every component that failed strict hardware or learning kill criteria (Table 1).
           </p>
 
           <p class="paper-table-caption"><strong>Table 1:</strong> Five-iteration falsification trajectory on Kaggle NVIDIA T4 / T4&times;2 silicon.</p>
-          <table>
-            <thead>
-              <tr><th>Ver.</th><th>Tested Formulation</th><th>Empirical Finding / Falsification</th><th>Engineering Pivot</th></tr>
-            </thead>
-            <tbody>
-              <tr><td><strong>v1</strong></td><td>Packed <code>bmm</code> with 48&times; <code>.permute()</code> copies; <code>layer_scale=10<sup>&minus;2</sup></code>.</td><td>Saved 56.6% VRAM (passed <code>B = 2048</code> where Par-GlobalBP OOMed), but 2.20&times; slower; <code>SynGeo</code> stalled at 11%.</td><td>Eliminate <code>.permute()</code>; Kaiming init + <code>layer_scale=0.5</code>.</td></tr>
-              <tr><td><strong>v2</strong></td><td><code>channels_last Conv2d(groups=3)</code> + 4D spatial FiLM (8 ep SMOKE).</td><td><code>NoVICReg</code> hit <strong>89.2% Acc / 0.788 R<sup>2</sup></strong> (beating Global BP 68.7% / 0.341), but 3.07&times; slower (<code>groups=3</code> + 4D FiLM).</td><td>Replace 4D FiLM with Pooled FiLM (&lt; 1 ms); lower VICReg to 0.01.</td></tr>
-              <tr><td><strong>v3</strong></td><td>Full 25/35-epoch validation; pixel-0 split (<code>D = [32..128]&times;3</code>), disjoint <code>K = 4</code>.</td><td><strong>Falsified on Tier 2 FULL:</strong> 63.5% vs. 77.0% Global BP (&minus;7.3% pixel-0 capacity starvation + &minus;6.2% <code>K = 4</code> myopia); 71.3 ms at <code>B = 128</code>.</td><td>Pure <code>torch.baddbmm</code>, Whole-Step CUDA Graph, Shared V1/V2 Stem, MAN++.</td></tr>
-              <tr><td><strong>v4</strong></td><td>GPU Kernel Lab: CUDA Graph + Static FP16 + NVML Energy + T4&times;2 + MAN++.</td><td><strong>Beat Global BP on GPU:</strong> 0.73&times; latency &amp; 1.39&times; samp/J at <code>d = 256</code>; <strong>2.41&times;</strong> on T4&times;2; accuracy jumped +10.3% (73.8% at 726K params).</td><td>Match inference params (~1.3M), sweep <code>M, K</code>, add 4 counterfactuals.</td></tr>
-              <tr><td><strong>v5</strong></td><td><strong>Unified Undeniable Proof:</strong> <code>M &isin; &#123;1..4&#125;</code>, <code>K &isin; &#123;1..6&#125;</code>, CF-1&ndash;CF-4, 2-GPU real data.</td><td><strong>1 GPU identical (K = 6): &minus;79% VRAM &amp; 11.5% faster.</strong> <code>M = 4</code>: 0.79&times; / 1.28&times; energy; T4&times;2: <strong>2.47&times;</strong>; 2-GPU data: zero acc loss &amp; beat Global BP Pose R<sup>2</sup>.</td><td><strong>Confirmed</strong> (formal Lean 4 + empirical T4&times;2 proof).</td></tr>
-            </tbody>
-          </table>
+          <div class="paper-table-wrap">
+            <table>
+              <thead>
+                <tr><th>Ver.</th><th>Tested Formulation</th><th>Empirical Finding / Falsification</th><th>Engineering Pivot</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>v1</strong></td><td>Packed <code>bmm</code> with 48&times; <code>.permute()</code> copies; <code>layer_scale=10<sup>&minus;2</sup></code>.</td><td>Saved 56.6% VRAM (passed <code>B = 2048</code> where Par-GlobalBP OOMed), but 2.20&times; slower; <code>SynGeo</code> stalled at 11%.</td><td>Eliminate <code>.permute()</code>; Kaiming init + <code>layer_scale=0.5</code>.</td></tr>
+                <tr><td><strong>v2</strong></td><td><code>channels_last Conv2d(groups=3)</code> + 4D spatial FiLM (8 ep SMOKE).</td><td><code>NoVICReg</code> hit <strong>89.2% Acc / 0.788 R<sup>2</sup></strong> (beating Global BP 68.7% / 0.341), but 3.07&times; slower (<code>groups=3</code> + 4D FiLM).</td><td>Replace 4D FiLM with Pooled FiLM (&lt; 1 ms); lower VICReg to 0.01.</td></tr>
+                <tr><td><strong>v3</strong></td><td>Full 25/35-epoch validation; pixel-0 split (<code>D = [32..128]&times;3</code>), disjoint <code>K = 4</code>.</td><td><strong>Falsified on Tier 2 FULL:</strong> 63.5% vs. 77.0% Global BP (&minus;7.3% pixel-0 capacity starvation + &minus;6.2% <code>K = 4</code> myopia); 71.3 ms at <code>B = 128</code>.</td><td>Pure <code>torch.baddbmm</code>, Whole-Step CUDA Graph, Shared V1/V2 Stem, MAN++.</td></tr>
+                <tr><td><strong>v4</strong></td><td>GPU Kernel Lab: CUDA Graph + Static FP16 + NVML Energy + T4&times;2 + MAN++.</td><td><strong>Beat Global BP on GPU:</strong> 0.73&times; latency &amp; 1.39&times; samp/J at <code>d = 256</code>; <strong>2.41&times;</strong> on T4&times;2; accuracy jumped +10.3% (73.8% at 726K params).</td><td>Match inference params (~1.3M), sweep <code>M, K</code>, add 4 counterfactuals.</td></tr>
+                <tr class="paper-row--highlight"><td><strong>v5</strong></td><td><strong>Unified Undeniable Proof:</strong> <code>M &isin; &#123;1..4&#125;</code>, <code>K &isin; &#123;1..6&#125;</code>, CF-1&ndash;CF-4, 2-GPU real data.</td><td><strong>1 GPU identical (K = 6): &minus;79% VRAM &amp; 11.5% faster.</strong> <code>M = 4</code>: 0.79&times; / 1.28&times; energy; T4&times;2: <strong>2.47&times;</strong>; 2-GPU data: zero acc loss &amp; beat Global BP Pose R<sup>2</sup>.</td><td><strong>Confirmed</strong> (formal Lean 4 + empirical T4&times;2 proof).</td></tr>
+              </tbody>
+            </table>
+          </div>
 
           <h2 id="sec2">2. Formal Mathematical Foundations (Verified in Lean 4)</h2>
           <p>
@@ -93,65 +160,76 @@ const footerLinks = [
           </p>
 
           <div class="paper-theorem">
-            <p><strong>Theorem 1 (Exact Block-Diagonal Gradient Isolation &amp; Non-Zero Forward Modulation).</strong> <em>Consider M &ge; 2 post-bifurcation streams with disjoint parameter blocks &theta; = (&theta;<sup>(1)</sup>, &hellip;, &theta;<sup>(M)</sup>) and block transition h<sub>k</sub><sup>(i)</sup> = F<sub>k</sub><sup>(i)</sup>(h<sub>k&minus;1</sub><sup>(i)</sup>, &theta;<sub>k</sub><sup>(i)</sup>, &#123;sg(h<sub>k&minus;1</sub><sup>(r)</sup>)&#125;<sub>r&ne;i</sub>), where sg(x) = x forward and &part;sg(x)/&part;u = 0 backward. Then for all i &ne; j and every block k:</em></p>
-            <div class="paper-equation">&part;L<sub>k</sub><sup>(i)</sup> / &part;&theta;<sup>(j)</sup> &equiv; 0, &emsp; &lang;g<sup>(i)</sup>, g<sup>(j)</sup>&rang; &equiv; 0, &emsp; I(H<sub>k</sub><sup>(i)</sup> ; H<sub>k&minus;1</sub><sup>(j)</sup> | H<sub>k&minus;1</sub><sup>(i)</sup>, &theta;<sub>k</sub><sup>(i)</sup>) &gt; 0 &emsp; (1)</div>
+            <div class="paper-theorem__badge">Theorem 1 &middot; Verified in Lean 4</div>
+            <p><strong>Exact Block-Diagonal Gradient Isolation &amp; Non-Zero Forward Modulation.</strong> <em>Consider M &ge; 2 post-bifurcation streams with disjoint parameter blocks &theta; = (&theta;<sup>(1)</sup>, &hellip;, &theta;<sup>(M)</sup>) and block transition h<sub>k</sub><sup>(i)</sup> = F<sub>k</sub><sup>(i)</sup>(h<sub>k&minus;1</sub><sup>(i)</sup>, &theta;<sub>k</sub><sup>(i)</sup>, &#123;sg(h<sub>k&minus;1</sub><sup>(r)</sup>)&#125;<sub>r&ne;i</sub>), where sg(x) = x forward and &part;sg(x)/&part;u = 0 backward. Then for all i &ne; j and every block k:</em></p>
+            <div class="paper-equation">
+              <span class="paper-equation__expr">&part;L<sub>k</sub><sup>(i)</sup> / &part;&theta;<sup>(j)</sup> &equiv; 0, &emsp; &lang;g<sup>(i)</sup>, g<sup>(j)</sup>&rang; &equiv; 0, &emsp; I(H<sub>k</sub><sup>(i)</sup> ; H<sub>k&minus;1</sub><sup>(j)</sup> | H<sub>k&minus;1</sub><sup>(i)</sup>, &theta;<sub>k</sub><sup>(i)</sup>) &gt; 0</span>
+              <span class="paper-equation__num">(1)</span>
+            </div>
             <p><em>eliminating destructive cross-stream gradient conflict (&lang;g<sup>(i)</sup>, g<sup>(j)</sup>&rang; &lt; 0) while preserving non-zero forward cross-stream contextual modulation.</em></p>
           </div>
 
           <div class="paper-theorem">
-            <p><strong>Theorem 2 (Peak Activation Memory O(L/K) &amp; Iso-Width Roofline Speedup Law).</strong> <em>(2A) Partitioning an L-layer network into K &ge; 2 eager local-plasticity blocks with immediate graph release yields M<sub>local</sub>(L, K) = (1/K) M<sub>global</sub>(L) + M<sub>aux</sub> &lt; M<sub>global</sub>(L) if and only if M<sub>aux</sub> &lt; ((K&minus;1)/K) M<sub>global</sub>(L). (2B) Packing total width C = M &middot; D into M &ge; 2 dense <code>torch.bmm</code> streams <a href="#ref13">[13]</a> over BN tokens with b-byte elements satisfies:</em></p>
-            <div class="paper-equation">FLOPs<sub>par</sub> = (1 / M) FLOPs<sub>hom</sub>, &emsp; Bytes<sub>par</sub> &lt; Bytes<sub>hom</sub> &emsp; (2)</div>
+            <div class="paper-theorem__badge">Theorem 2 &middot; Verified in Lean 4</div>
+            <p><strong>Peak Activation Memory O(L/K) &amp; Iso-Width Roofline Speedup Law.</strong> <em>(2A) Partitioning an L-layer network into K &ge; 2 eager local-plasticity blocks with immediate graph release yields M<sub>local</sub>(L, K) = (1/K) M<sub>global</sub>(L) + M<sub>aux</sub> &lt; M<sub>global</sub>(L) if and only if M<sub>aux</sub> &lt; ((K&minus;1)/K) M<sub>global</sub>(L). (2B) Packing total width C = M &middot; D into M &ge; 2 dense <code>torch.bmm</code> streams <a class="paper-cite" href="#ref13">[13]</a> over BN tokens with b-byte elements satisfies:</em></p>
+            <div class="paper-equation">
+              <span class="paper-equation__expr">FLOPs<sub>par</sub> = (1 / M) FLOPs<sub>hom</sub>, &emsp; Bytes<sub>par</sub> &lt; Bytes<sub>hom</sub></span>
+              <span class="paper-equation__num">(2)</span>
+            </div>
             <p><em>On a GPU with ridge point R<sub>GPU</sub> = &Pi;<sub>peak</sub> / &beta;<sub>mem</sub>, whenever 2BND &ge; b R<sub>GPU</sub>(2BN + D), both kernels are compute-bound and strict wall-clock speedup T<sub>par</sub> + T<sub>ovh</sub> &lt; T<sub>hom</sub> holds iff T<sub>ovh</sub> &lt; ((M&minus;1)/M) T<sub>hom</sub>.</em></p>
           </div>
 
           <div class="paper-theorem">
-            <p><strong>Theorem 3 (Zero-Bubble Asynchronous Local Pipeline Dominance).</strong> <em>Across P &ge; 2 GPUs and m &ge; 1 microbatches, backward-locked GPipe <a href="#ref6">[6]</a> achieves utilization U<sub>GPipe</sub>(P, m) = m / (P &minus; 1 + m). Removing cross-stage backward dependencies via local plasticity <a href="#ref5">[5]</a> eliminates pipeline bubbles, yielding steady-state utilization U<sub>local</sub>(&epsilon;<sub>comm</sub>) = 1 / (1 + &epsilon;<sub>comm</sub>), which strictly exceeds GPipe iff &epsilon;<sub>comm</sub> &lt; (P &minus; 1) / m.</em></p>
+            <div class="paper-theorem__badge">Theorem 3 &middot; Verified in Lean 4</div>
+            <p><strong>Zero-Bubble Asynchronous Local Pipeline Dominance.</strong> <em>Across P &ge; 2 GPUs and m &ge; 1 microbatches, backward-locked GPipe <a class="paper-cite" href="#ref6">[6]</a> achieves utilization U<sub>GPipe</sub>(P, m) = m / (P &minus; 1 + m). Removing cross-stage backward dependencies via local plasticity <a class="paper-cite" href="#ref5">[5]</a> eliminates pipeline bubbles, yielding steady-state utilization U<sub>local</sub>(&epsilon;<sub>comm</sub>) = 1 / (1 + &epsilon;<sub>comm</sub>), which strictly exceeds GPipe iff &epsilon;<sub>comm</sub> &lt; (P &minus; 1) / m.</em></p>
           </div>
 
           <h2 id="sec3">3. SPRINT-LP v5: GPU-Native &amp; Bio-Faithful Unified Architecture</h2>
           <p>To bridge hardware speed and natural-image representation quality, <strong>SPRINT-LP v5</strong> combines four systems and neuro-inspired primitives (Figure 1):</p>
           <ol>
-            <li><strong>Pure Tensor-Core Stream Packing (<code>torch.baddbmm</code>):</strong> Replaces slow <code>Conv2d(groups=M)</code> kernels with contiguous batched GEMMs (<code>cublasGemmStridedBatchedEx</code>) <a href="#ref11">[11]</a> over <code>[M, B&middot;N, d]</code> tensors aligned to multiples of 8/64.</li>
-            <li><strong>Whole-Step <code>torch.cuda.CUDAGraph</code> + Static FP16 + Fused AdamW:</strong> Captures all <code>K</code> local blocks' forward, loss, backward, <code>_foreach_mul_</code> static descaling (<code>S = 256.0</code>), gradient clipping, and fused capturable AdamW <a href="#ref14">[14]</a> <a href="#ref15">[15]</a> into a single CPU launch (~30 &mu;s), eliminating 4&times; dynamic <code>GradScaler</code> host-device syncs.</li>
+            <li><strong>Pure Tensor-Core Stream Packing (<code>torch.baddbmm</code>):</strong> Replaces slow <code>Conv2d(groups=M)</code> kernels with contiguous batched GEMMs (<code>cublasGemmStridedBatchedEx</code>) <a class="paper-cite" href="#ref11">[11]</a> over <code>[M, B&middot;N, d]</code> tensors aligned to multiples of 8/64.</li>
+            <li><strong>Whole-Step <code>torch.cuda.CUDAGraph</code> + Static FP16 + Fused AdamW:</strong> Captures all <code>K</code> local blocks' forward, loss, backward, <code>_foreach_mul_</code> static descaling (<code>S = 256.0</code>), gradient clipping, and fused capturable AdamW <a class="paper-cite" href="#ref14">[14]</a><a class="paper-cite" href="#ref15">[15]</a> into a single CPU launch (~30 &mu;s), eliminating 4&times; dynamic <code>GradScaler</code> host-device syncs.</li>
             <li><strong>Bio-Faithful Shared V1/V2 Stem + Late Bifurcation:</strong> Stage 1 (<code>16&times;16, C = 96</code>) uses dense <code>groups=1</code> convolutions to capture synergistic early edges without &radic;M bandwidth inflation, before bifurcating at Stage 2 (<code>8&times;8</code>) and Stage 3 (<code>4&times;4</code>) into hard-isolated Ventral/Dorsal <code>torch.baddbmm</code> streams coupled by stop-gradient <strong>CG-LatFiLM</strong>.</li>
-            <li><strong>2-Unit Deep-MAN++ Anti-Myopia + Zero-Bubble T4&times;2 Pipeline:</strong> Each early block trains through a gradient-free EMA shadow (<code>&alpha; = 0.995</code>, updated via <code>_foreach_lerp_</code>) of the full downstream block <a href="#ref8">[8]</a> paired with detached <em>Shared-Output Readout</em> <a href="#ref9">[9]</a>. On 2 GPUs, GPU 0 (Blocks 1&ndash;2) and GPU 1 (Block 3) run 100% concurrently via ping-pong double buffers and non-blocking CUDA events.</li>
+            <li><strong>2-Unit Deep-MAN++ Anti-Myopia + Zero-Bubble T4&times;2 Pipeline:</strong> Each early block trains through a gradient-free EMA shadow (<code>&alpha; = 0.995</code>, updated via <code>_foreach_lerp_</code>) of the full downstream block <a class="paper-cite" href="#ref8">[8]</a> paired with detached <em>Shared-Output Readout</em> <a class="paper-cite" href="#ref9">[9]</a>. On 2 GPUs, GPU 0 (Blocks 1&ndash;2) and GPU 1 (Block 3) run 100% concurrently via ping-pong double buffers and non-blocking CUDA events.</li>
           </ol>
 
           <figure class="paper-figure">
-            <svg viewBox="0 0 880 250" width="100%" role="img" aria-label="Unified SPRINT-LP v5 architecture diagram across Device 0 and Device 1 NVIDIA T4 GPUs">
-              <rect x="8" y="10" width="510" height="228" rx="10" fill="#1D221E" stroke="#353B35" stroke-width="1" />
-              <text x="263" y="34" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="13" font-weight="500" text-anchor="middle">DEVICE 0 (NVIDIA T4) — Local Blocks 1 &amp; 2</text>
-              <rect x="24" y="48" width="196" height="126" rx="8" fill="#272C27" stroke="#353B35" stroke-width="1" />
-              <text x="122" y="74" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="12.5" font-weight="500" text-anchor="middle">Block 1: Shared V1/V2</text>
-              <text x="122" y="96" fill="#A6ABA2" font-family="Manrope, sans-serif" font-size="11.5" text-anchor="middle">Dense Conv (groups=1)</text>
-              <text x="122" y="116" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">16&times;16, C = 96</text>
-              <text x="122" y="144" fill="#D47353" font-family="Manrope, sans-serif" font-size="11.5" font-weight="500" text-anchor="middle">+ Deep-MAN++ Aux 1</text>
-              <text x="256" y="92" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="10.5" text-anchor="middle">sg</text>
-              <line x1="226" y1="110" x2="278" y2="110" stroke="#D47353" stroke-width="2" />
-              <polygon points="278,105 288,110 278,115" fill="#D47353" />
-              <text x="256" y="130" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">.detach()</text>
-              <rect x="292" y="48" width="210" height="126" rx="8" fill="#272C27" stroke="#353B35" stroke-width="1" />
-              <text x="397" y="74" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="12.5" font-weight="500" text-anchor="middle">Block 2: Late Bifurcation</text>
-              <text x="397" y="96" fill="#A6ABA2" font-family="Manrope, sans-serif" font-size="11.5" text-anchor="middle">Ventral (Inv) || Dorsal (Var)</text>
-              <text x="397" y="116" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">baddbmm + CG-LatFiLM</text>
-              <text x="397" y="144" fill="#D47353" font-family="Manrope, sans-serif" font-size="11.5" font-weight="500" text-anchor="middle">+ Deep-MAN++ Aux 2 (EMA)</text>
-              <rect x="24" y="188" width="478" height="34" rx="6" fill="#272C27" stroke="#353B35" stroke-width="0.75" />
-              <text x="263" y="209" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">Batch t + 1: Immediate Local Update — Zero Backward Wait from GPU 1</text>
-              <text x="572" y="88" fill="#272C27" font-family="Manrope, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Async P2P</text>
-              <line x1="524" y1="110" x2="608" y2="110" stroke="#A64B31" stroke-width="2.5" />
-              <polygon points="608,104 620,110 608,116" fill="#A64B31" />
-              <text x="572" y="132" fill="#272C27" font-family="JetBrains Mono, monospace" font-size="10.5" text-anchor="middle">FP16 Ping-Pong</text>
-              <text x="572" y="148" fill="#62675E" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">(.detach())</text>
-              <rect x="626" y="10" width="246" height="228" rx="10" fill="#1D221E" stroke="#353B35" stroke-width="1" />
-              <text x="749" y="34" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="13" font-weight="500" text-anchor="middle">DEVICE 1 (NVIDIA T4) — Block 3</text>
-              <rect x="642" y="48" width="214" height="126" rx="8" fill="#272C27" stroke="#353B35" stroke-width="1" />
-              <text x="749" y="74" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="12.5" font-weight="500" text-anchor="middle">Block 3: Deep IT / PPC</text>
-              <text x="749" y="96" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">Packed baddbmm (4&times;4, C=192)</text>
-              <text x="749" y="116" fill="#A6ABA2" font-family="Manrope, sans-serif" font-size="11.5" text-anchor="middle">CG-LatFiLM (sg Barrier)</text>
-              <text x="749" y="144" fill="#5FC48A" font-family="Manrope, sans-serif" font-size="11.5" font-weight="500" text-anchor="middle">Terminal Class &amp; Pose Heads</text>
-              <rect x="642" y="188" width="214" height="34" rx="6" fill="#272C27" stroke="#353B35" stroke-width="0.75" />
-              <text x="749" y="209" fill="#5FC48A" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">Batch t: 100% Concurrent (2.47&times;)</text>
-            </svg>
+            <div class="paper-figure__frame">
+              <svg viewBox="0 0 880 250" width="100%" role="img" aria-label="Unified SPRINT-LP v5 architecture diagram across Device 0 and Device 1 NVIDIA T4 GPUs">
+                <rect x="8" y="10" width="510" height="228" rx="10" fill="#1D221E" stroke="#353B35" stroke-width="1" />
+                <text x="263" y="34" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="13" font-weight="500" text-anchor="middle">DEVICE 0 (NVIDIA T4) — Local Blocks 1 &amp; 2</text>
+                <rect x="24" y="48" width="196" height="126" rx="8" fill="#272C27" stroke="#353B35" stroke-width="1" />
+                <text x="122" y="74" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="12.5" font-weight="500" text-anchor="middle">Block 1: Shared V1/V2</text>
+                <text x="122" y="96" fill="#A6ABA2" font-family="Manrope, sans-serif" font-size="11.5" text-anchor="middle">Dense Conv (groups=1)</text>
+                <text x="122" y="116" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">16&times;16, C = 96</text>
+                <text x="122" y="144" fill="#D47353" font-family="Manrope, sans-serif" font-size="11.5" font-weight="500" text-anchor="middle">+ Deep-MAN++ Aux 1</text>
+                <text x="256" y="92" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="10.5" text-anchor="middle">sg</text>
+                <line x1="226" y1="110" x2="278" y2="110" stroke="#D47353" stroke-width="2" />
+                <polygon points="278,105 288,110 278,115" fill="#D47353" />
+                <text x="256" y="130" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">.detach()</text>
+                <rect x="292" y="48" width="210" height="126" rx="8" fill="#272C27" stroke="#353B35" stroke-width="1" />
+                <text x="397" y="74" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="12.5" font-weight="500" text-anchor="middle">Block 2: Late Bifurcation</text>
+                <text x="397" y="96" fill="#A6ABA2" font-family="Manrope, sans-serif" font-size="11.5" text-anchor="middle">Ventral (Inv) || Dorsal (Var)</text>
+                <text x="397" y="116" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">baddbmm + CG-LatFiLM</text>
+                <text x="397" y="144" fill="#D47353" font-family="Manrope, sans-serif" font-size="11.5" font-weight="500" text-anchor="middle">+ Deep-MAN++ Aux 2 (EMA)</text>
+                <rect x="24" y="188" width="478" height="34" rx="6" fill="#272C27" stroke="#353B35" stroke-width="0.75" />
+                <text x="263" y="209" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">Batch t + 1: Immediate Local Update — Zero Backward Wait from GPU 1</text>
+                <text x="572" y="88" fill="#272C27" font-family="Manrope, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Async P2P</text>
+                <line x1="524" y1="110" x2="608" y2="110" stroke="#A64B31" stroke-width="2.5" />
+                <polygon points="608,104 620,110 608,116" fill="#A64B31" />
+                <text x="572" y="132" fill="#272C27" font-family="JetBrains Mono, monospace" font-size="10.5" text-anchor="middle">FP16 Ping-Pong</text>
+                <text x="572" y="148" fill="#62675E" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">(.detach())</text>
+                <rect x="626" y="10" width="246" height="228" rx="10" fill="#1D221E" stroke="#353B35" stroke-width="1" />
+                <text x="749" y="34" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="13" font-weight="500" text-anchor="middle">DEVICE 1 (NVIDIA T4) — Block 3</text>
+                <rect x="642" y="48" width="214" height="126" rx="8" fill="#272C27" stroke="#353B35" stroke-width="1" />
+                <text x="749" y="74" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="12.5" font-weight="500" text-anchor="middle">Block 3: Deep IT / PPC</text>
+                <text x="749" y="96" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">Packed baddbmm (4&times;4, C=192)</text>
+                <text x="749" y="116" fill="#A6ABA2" font-family="Manrope, sans-serif" font-size="11.5" text-anchor="middle">CG-LatFiLM (sg Barrier)</text>
+                <text x="749" y="144" fill="#5FC48A" font-family="Manrope, sans-serif" font-size="11.5" font-weight="500" text-anchor="middle">Terminal Class &amp; Pose Heads</text>
+                <rect x="642" y="188" width="214" height="34" rx="6" fill="#272C27" stroke="#353B35" stroke-width="0.75" />
+                <text x="749" y="209" fill="#5FC48A" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">Batch t: 100% Concurrent (2.47&times;)</text>
+              </svg>
+            </div>
             <figcaption><strong>Figure 1:</strong> Unified <strong>SPRINT-LP v5</strong> architecture combining Shared V1/V2 Stem, Late Hard-Isolated <code>torch.baddbmm</code> Bifurcation, Deep-MAN++ EMA shadows, and Zero-Bubble Asynchronous T4&times;2 Pipelining.</figcaption>
           </figure>
 
@@ -159,31 +237,35 @@ const footerLinks = [
 
           <h3 id="sec4-1">4.1 Single-GPU Bonus Discovery: L2 Cache Locality Beats Global BP at 100% Identical Parameters</h3>
           <p>
-            Evaluating Part I-B (<code>L = 12</code> <code>PureBMMStreamBlock</code> layers, <code>M = 3, d = 128</code>, <strong>100% identical model and parameter count</strong> on a single T4), partitioning from <code>K = 1</code> (Global BP) to <code>K = 6</code> (Local BP) not only follows Theorem 2A by cutting peak activation VRAM by <strong>79.0%</strong> (<code>758.1 &rarr; 159.2 MB</code>), but also <strong>monotonically accelerates wall-clock speed by 11.5%</strong> (<code>54.71 &rarr; 48.43 ms/step</code>; Table 2). Because <code>K = 6</code> executes backward immediately after 2 layers, intermediate activations remain hot in the T4's 4 MB L2 cache instead of spilling to 320 GB/s GDDR6 as in <code>K = 1</code>.
+            Evaluating Part I-B (<code>L = 12</code> <code>PureBMMStreamBlock</code> layers, <code>M = 3, d = 128</code>, <strong>100% identical model and parameter count</strong> on a single T4), partitioning from <code>K = 1</code> (Global BP) to <code>K = 6</code> (Local BP) not only follows Theorem 2A by cutting peak activation VRAM by <strong>79.0%</strong> (<code>758.1 &rarr; 159.2 MB</code>), but also <strong>monotonically accelerates wall-clock speed by 11.5%</strong> (<code>54.71 &rarr; 48.43 ms/step</code>; Table 2A). Because <code>K = 6</code> executes backward immediately after 2 layers, intermediate activations remain hot in the T4's 4 MB L2 cache instead of spilling to 320 GB/s GDDR6 as in <code>K = 1</code>.
           </p>
 
           <p class="paper-table-caption"><strong>Table 2A (Part I-B):</strong> Single-GPU block-partition sweep (<code>L = 12, M = 3, d = 128</code>, 100% identical parameters).</p>
-          <table>
-            <thead><tr><th>Partition</th><th>Act VRAM</th><th>Latency</th><th>vs. K = 1</th></tr></thead>
-            <tbody>
-              <tr><td><code>K = 1</code> (Global)</td><td><code>758.1 MB</code></td><td><code>54.71 ms</code></td><td><code>1.00&times;</code></td></tr>
-              <tr><td><code>K = 2</code> (Local)</td><td><code>401.1 MB</code></td><td><code>53.17 ms</code></td><td><code>0.97&times;</code></td></tr>
-              <tr><td><code>K = 3</code> (Local)</td><td><code>280.1 MB</code></td><td><code>51.93 ms</code></td><td><code>0.95&times;</code></td></tr>
-              <tr><td><code>K = 4</code> (Local)</td><td><code>219.6 MB</code></td><td><code>50.79 ms</code></td><td><code>0.93&times;</code></td></tr>
-              <tr><td><strong><code>K = 6</code> (Local)</strong></td><td><strong><code>159.2 MB</code></strong></td><td><strong><code>48.43 ms</code></strong></td><td><strong><code>0.89&times;</code></strong></td></tr>
-            </tbody>
-          </table>
+          <div class="paper-table-wrap">
+            <table>
+              <thead><tr><th>Partition</th><th>Act VRAM</th><th>Latency</th><th>vs. K = 1</th></tr></thead>
+              <tbody>
+                <tr><td><code>K = 1</code> (Global)</td><td><code>758.1 MB</code></td><td><code>54.71 ms</code></td><td><code>1.00&times;</code></td></tr>
+                <tr><td><code>K = 2</code> (Local)</td><td><code>401.1 MB</code></td><td><code>53.17 ms</code></td><td><code>0.97&times;</code></td></tr>
+                <tr><td><code>K = 3</code> (Local)</td><td><code>280.1 MB</code></td><td><code>51.93 ms</code></td><td><code>0.95&times;</code></td></tr>
+                <tr><td><code>K = 4</code> (Local)</td><td><code>219.6 MB</code></td><td><code>50.79 ms</code></td><td><code>0.93&times;</code></td></tr>
+                <tr class="paper-row--highlight"><td><strong><code>K = 6</code> (Local)</strong></td><td><strong><code>159.2 MB</code></strong></td><td><strong><code>48.43 ms</code></strong></td><td><strong><code>0.89&times;</code></strong></td></tr>
+              </tbody>
+            </table>
+          </div>
 
-          <p class="paper-table-caption"><strong>Table 2B (Part I-A):</strong> Iso-Width stream scaling (<code>D = 768</code>, 1 GPU, NVML hardware energy counters <a href="#ref12">[12]</a>). Note: v4 Lab 2 (<code>d = 256</code>) reached <code>0.73&times;</code> latency and <code>1.39&times;</code> samp/J.</p>
-          <table>
-            <thead><tr><th>Streams</th><th>Latency</th><th>Ratio</th><th>samp/J</th><th>Energy</th></tr></thead>
-            <tbody>
-              <tr><td><code>M = 1</code> (Dense)</td><td><code>75.38 ms</code></td><td><code>1.00&times;</code></td><td><code>24.5</code></td><td><code>1.00&times;</code></td></tr>
-              <tr><td><code>M = 2</code> (<code>d = 384</code>)</td><td><code>69.25 ms</code></td><td><code>0.92&times;</code></td><td><code>27.4</code></td><td><code>1.12&times;</code></td></tr>
-              <tr><td><code>M = 3</code> (<code>d = 256</code>)</td><td><code>60.66 ms</code></td><td><code>0.80&times;</code></td><td><code>31.0</code></td><td><code>1.27&times;</code></td></tr>
-              <tr><td><strong><code>M = 4</code> (<code>d = 192</code>)</strong></td><td><strong><code>59.30 ms</code></strong></td><td><strong><code>0.79&times;</code></strong></td><td><strong><code>31.3</code></strong></td><td><strong><code>1.28&times;</code></strong></td></tr>
-            </tbody>
-          </table>
+          <p class="paper-table-caption"><strong>Table 2B (Part I-A):</strong> Iso-Width stream scaling (<code>D = 768</code>, 1 GPU, NVML hardware energy counters <a class="paper-cite" href="#ref12">[12]</a>). Note: v4 Lab 2 (<code>d = 256</code>) reached <code>0.73&times;</code> latency and <code>1.39&times;</code> samp/J.</p>
+          <div class="paper-table-wrap">
+            <table>
+              <thead><tr><th>Streams</th><th>Latency</th><th>Ratio</th><th>samp/J</th><th>Energy</th></tr></thead>
+              <tbody>
+                <tr><td><code>M = 1</code> (Dense)</td><td><code>75.38 ms</code></td><td><code>1.00&times;</code></td><td><code>24.5</code></td><td><code>1.00&times;</code></td></tr>
+                <tr><td><code>M = 2</code> (<code>d = 384</code>)</td><td><code>69.25 ms</code></td><td><code>0.92&times;</code></td><td><code>27.4</code></td><td><code>1.12&times;</code></td></tr>
+                <tr><td><code>M = 3</code> (<code>d = 256</code>)</td><td><code>60.66 ms</code></td><td><code>0.80&times;</code></td><td><code>31.0</code></td><td><code>1.27&times;</code></td></tr>
+                <tr class="paper-row--highlight"><td><strong><code>M = 4</code> (<code>d = 192</code>)</strong></td><td><strong><code>59.30 ms</code></strong></td><td><strong><code>0.79&times;</code></strong></td><td><strong><code>31.3</code></strong></td><td><strong><code>1.28&times;</code></strong></td></tr>
+              </tbody>
+            </table>
+          </div>
 
           <h3 id="sec4-2">4.2 Counterfactual Falsification Matrix (CF-1 through CF-4)</h3>
           <p>To prove strict causality rather than coincidence, we deliberately broke each theorem's governing mechanism on live T4&times;2 hardware (Figure 2):</p>
@@ -195,73 +277,75 @@ const footerLinks = [
           </ul>
 
           <figure class="paper-figure">
-            <svg viewBox="0 0 880 540" width="100%" role="img" aria-label="Figure 2: v5 Undeniable Empirical Proof on Kaggle NVIDIA T4x2 across 4 panels">
-              <rect x="8" y="8" width="424" height="254" rx="10" fill="#1D221E" stroke="#353B35" stroke-width="1" />
-              <text x="220" y="32" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="12.5" font-weight="500" text-anchor="middle">A. Theorem 2: M-Stream Scaling (Iso-Width D=768)</text>
-              <line x1="56" y1="212" x2="404" y2="212" stroke="#353B35" stroke-width="1" />
-              <rect x="78" y="88" width="54" height="124" rx="4" fill="#62675E" />
-              <text x="105" y="78" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="10.5" text-anchor="middle">75.4ms</text>
-              <text x="105" y="106" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">24.5 s/J</text>
-              <text x="105" y="229" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">M=1</text>
-              <rect x="160" y="98" width="54" height="114" rx="4" fill="#5E7B73" />
-              <text x="187" y="88" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="10.5" text-anchor="middle">69.3ms</text>
-              <text x="187" y="116" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">27.4 s/J</text>
-              <text x="187" y="229" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">M=2</text>
-              <rect x="242" y="112" width="54" height="100" rx="4" fill="#469677" />
-              <text x="269" y="102" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="10.5" text-anchor="middle">60.7ms</text>
-              <text x="269" y="130" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">31.0 s/J</text>
-              <text x="269" y="229" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">M=3</text>
-              <rect x="324" y="114" width="54" height="98" rx="4" fill="#5FC48A" />
-              <text x="351" y="104" fill="#5FC48A" font-family="JetBrains Mono, monospace" font-size="10.5" font-weight="500" text-anchor="middle">59.3ms</text>
-              <text x="351" y="132" fill="#1D221E" font-family="JetBrains Mono, monospace" font-size="9.5" font-weight="500" text-anchor="middle">31.3 s/J</text>
-              <text x="351" y="229" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">M=4 (0.79&times;)</text>
-              <rect x="448" y="8" width="424" height="254" rx="10" fill="#1D221E" stroke="#353B35" stroke-width="1" />
-              <text x="660" y="32" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="12.5" font-weight="500" text-anchor="middle">B. Theorem 2A: O(L/K) VRAM Law + CF-2 Rebound</text>
-              <line x1="504" y1="212" x2="846" y2="212" stroke="#353B35" stroke-width="1" />
-              <polyline points="524,68 594,142 664,167 734,180 824,193" fill="none" stroke="#5FC48A" stroke-width="2.5" />
-              <circle cx="524" cy="68" r="4.5" fill="#5FC48A" />
-              <text x="536" y="64" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="9.5">758 MB</text>
-              <circle cx="594" cy="142" r="4.5" fill="#5FC48A" />
-              <text x="594" y="132" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">401</text>
-              <circle cx="664" cy="167" r="4.5" fill="#5FC48A" />
-              <text x="664" y="157" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">280</text>
-              <circle cx="734" cy="180" r="4.5" fill="#5FC48A" />
-              <text x="734" y="198" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">220 MB</text>
-              <circle cx="824" cy="193" r="4.5" fill="#5FC48A" />
-              <text x="824" y="182" fill="#5FC48A" font-family="JetBrains Mono, monospace" font-size="10" font-weight="500" text-anchor="middle">159 MB</text>
-              <line x1="734" y1="174" x2="734" y2="76" stroke="#D47353" stroke-width="1.5" stroke-dasharray="4,3" />
-              <circle cx="734" cy="68" r="5.5" fill="#D47353" />
-              <text x="734" y="56" fill="#D47353" font-family="JetBrains Mono, monospace" font-size="10" font-weight="500" text-anchor="middle">CF-2: 758 MB (3.45&times;)</text>
-              <text x="524" y="229" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">K=1</text>
-              <text x="594" y="229" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">K=2</text>
-              <text x="664" y="229" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">K=3</text>
-              <text x="734" y="229" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">K=4</text>
-              <text x="824" y="229" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">K=6 (-79%)</text>
-              <rect x="8" y="278" width="424" height="254" rx="10" fill="#1D221E" stroke="#353B35" stroke-width="1" />
-              <text x="220" y="302" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="12.5" font-weight="500" text-anchor="middle">C. Theorem 3: T4&times;2 Zero-Bubble (2.47&times; Speedup)</text>
-              <line x1="56" y1="482" x2="404" y2="482" stroke="#353B35" stroke-width="1" />
-              <rect x="108" y="346" width="84" height="136" rx="4" fill="#D47353" />
-              <text x="150" y="336" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="11" font-weight="500" text-anchor="middle">41.82 ms</text>
-              <text x="150" y="500" fill="#A6ABA2" font-family="Manrope, sans-serif" font-size="10.5" text-anchor="middle">CF-3: Sync Global BP</text>
-              <rect x="252" y="427" width="84" height="55" rx="4" fill="#5FC48A" />
-              <text x="294" y="416" fill="#5FC48A" font-family="JetBrains Mono, monospace" font-size="11" font-weight="500" text-anchor="middle">16.96 ms (2.47&times;)</text>
-              <text x="294" y="500" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="10.5" text-anchor="middle">Zero-Bubble Async Local</text>
-              <rect x="448" y="278" width="424" height="254" rx="10" fill="#1D221E" stroke="#353B35" stroke-width="1" />
-              <text x="660" y="302" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="12.5" font-weight="500" text-anchor="middle">D. Unified ~1.26M Acc &amp; 2-GPU Async Equivalence</text>
-              <line x1="496" y1="482" x2="846" y2="482" stroke="#353B35" stroke-width="1" />
-              <rect x="518" y="352" width="54" height="130" rx="4" fill="#62675E" />
-              <text x="545" y="342" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="10.5" text-anchor="middle">82.07%</text>
-              <text x="545" y="500" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">GlobalBP</text>
-              <rect x="600" y="360" width="54" height="122" rx="4" fill="#469677" />
-              <text x="627" y="350" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="10.5" text-anchor="middle">77.19%</text>
-              <text x="627" y="500" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">v5 1-GPU</text>
-              <rect x="682" y="361" width="54" height="121" rx="4" fill="#D47353" />
-              <text x="709" y="351" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="10.5" text-anchor="middle">77.08%</text>
-              <text x="709" y="500" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">CF4 NoMAN</text>
-              <rect x="764" y="359" width="54" height="123" rx="4" fill="#5FC48A" />
-              <text x="791" y="349" fill="#5FC48A" font-family="JetBrains Mono, monospace" font-size="10.5" font-weight="500" text-anchor="middle">77.58%</text>
-              <text x="791" y="500" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">v5 2-GPU</text>
-            </svg>
+            <div class="paper-figure__frame">
+              <svg viewBox="0 0 880 540" width="100%" role="img" aria-label="Figure 2: v5 Undeniable Empirical Proof on Kaggle NVIDIA T4x2 across 4 panels">
+                <rect x="8" y="8" width="424" height="254" rx="10" fill="#1D221E" stroke="#353B35" stroke-width="1" />
+                <text x="220" y="32" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="12.5" font-weight="500" text-anchor="middle">A. Theorem 2: M-Stream Scaling (Iso-Width D=768)</text>
+                <line x1="56" y1="212" x2="404" y2="212" stroke="#353B35" stroke-width="1" />
+                <rect x="78" y="88" width="54" height="124" rx="4" fill="#62675E" />
+                <text x="105" y="78" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="10.5" text-anchor="middle">75.4ms</text>
+                <text x="105" y="106" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">24.5 s/J</text>
+                <text x="105" y="229" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">M=1</text>
+                <rect x="160" y="98" width="54" height="114" rx="4" fill="#5E7B73" />
+                <text x="187" y="88" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="10.5" text-anchor="middle">69.3ms</text>
+                <text x="187" y="116" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">27.4 s/J</text>
+                <text x="187" y="229" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">M=2</text>
+                <rect x="242" y="112" width="54" height="100" rx="4" fill="#469677" />
+                <text x="269" y="102" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="10.5" text-anchor="middle">60.7ms</text>
+                <text x="269" y="130" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">31.0 s/J</text>
+                <text x="269" y="229" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">M=3</text>
+                <rect x="324" y="114" width="54" height="98" rx="4" fill="#5FC48A" />
+                <text x="351" y="104" fill="#5FC48A" font-family="JetBrains Mono, monospace" font-size="10.5" font-weight="500" text-anchor="middle">59.3ms</text>
+                <text x="351" y="132" fill="#1D221E" font-family="JetBrains Mono, monospace" font-size="9.5" font-weight="500" text-anchor="middle">31.3 s/J</text>
+                <text x="351" y="229" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">M=4 (0.79&times;)</text>
+                <rect x="448" y="8" width="424" height="254" rx="10" fill="#1D221E" stroke="#353B35" stroke-width="1" />
+                <text x="660" y="32" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="12.5" font-weight="500" text-anchor="middle">B. Theorem 2A: O(L/K) VRAM Law + CF-2 Rebound</text>
+                <line x1="504" y1="212" x2="846" y2="212" stroke="#353B35" stroke-width="1" />
+                <polyline points="524,68 594,142 664,167 734,180 824,193" fill="none" stroke="#5FC48A" stroke-width="2.5" />
+                <circle cx="524" cy="68" r="4.5" fill="#5FC48A" />
+                <text x="536" y="64" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="9.5">758 MB</text>
+                <circle cx="594" cy="142" r="4.5" fill="#5FC48A" />
+                <text x="594" y="132" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">401</text>
+                <circle cx="664" cy="167" r="4.5" fill="#5FC48A" />
+                <text x="664" y="157" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">280</text>
+                <circle cx="734" cy="180" r="4.5" fill="#5FC48A" />
+                <text x="734" y="198" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">220 MB</text>
+                <circle cx="824" cy="193" r="4.5" fill="#5FC48A" />
+                <text x="824" y="182" fill="#5FC48A" font-family="JetBrains Mono, monospace" font-size="10" font-weight="500" text-anchor="middle">159 MB</text>
+                <line x1="734" y1="174" x2="734" y2="76" stroke="#D47353" stroke-width="1.5" stroke-dasharray="4,3" />
+                <circle cx="734" cy="68" r="5.5" fill="#D47353" />
+                <text x="734" y="56" fill="#D47353" font-family="JetBrains Mono, monospace" font-size="10" font-weight="500" text-anchor="middle">CF-2: 758 MB (3.45&times;)</text>
+                <text x="524" y="229" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">K=1</text>
+                <text x="594" y="229" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">K=2</text>
+                <text x="664" y="229" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">K=3</text>
+                <text x="734" y="229" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">K=4</text>
+                <text x="824" y="229" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">K=6 (-79%)</text>
+                <rect x="8" y="278" width="424" height="254" rx="10" fill="#1D221E" stroke="#353B35" stroke-width="1" />
+                <text x="220" y="302" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="12.5" font-weight="500" text-anchor="middle">C. Theorem 3: T4&times;2 Zero-Bubble (2.47&times; Speedup)</text>
+                <line x1="56" y1="482" x2="404" y2="482" stroke="#353B35" stroke-width="1" />
+                <rect x="108" y="346" width="84" height="136" rx="4" fill="#D47353" />
+                <text x="150" y="336" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="11" font-weight="500" text-anchor="middle">41.82 ms</text>
+                <text x="150" y="500" fill="#A6ABA2" font-family="Manrope, sans-serif" font-size="10.5" text-anchor="middle">CF-3: Sync Global BP</text>
+                <rect x="252" y="427" width="84" height="55" rx="4" fill="#5FC48A" />
+                <text x="294" y="416" fill="#5FC48A" font-family="JetBrains Mono, monospace" font-size="11" font-weight="500" text-anchor="middle">16.96 ms (2.47&times;)</text>
+                <text x="294" y="500" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="10.5" text-anchor="middle">Zero-Bubble Async Local</text>
+                <rect x="448" y="278" width="424" height="254" rx="10" fill="#1D221E" stroke="#353B35" stroke-width="1" />
+                <text x="660" y="302" fill="#F5F2EB" font-family="Manrope, sans-serif" font-size="12.5" font-weight="500" text-anchor="middle">D. Unified ~1.26M Acc &amp; 2-GPU Async Equivalence</text>
+                <line x1="496" y1="482" x2="846" y2="482" stroke="#353B35" stroke-width="1" />
+                <rect x="518" y="352" width="54" height="130" rx="4" fill="#62675E" />
+                <text x="545" y="342" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="10.5" text-anchor="middle">82.07%</text>
+                <text x="545" y="500" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">GlobalBP</text>
+                <rect x="600" y="360" width="54" height="122" rx="4" fill="#469677" />
+                <text x="627" y="350" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="10.5" text-anchor="middle">77.19%</text>
+                <text x="627" y="500" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">v5 1-GPU</text>
+                <rect x="682" y="361" width="54" height="121" rx="4" fill="#D47353" />
+                <text x="709" y="351" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="10.5" text-anchor="middle">77.08%</text>
+                <text x="709" y="500" fill="#A6ABA2" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">CF4 NoMAN</text>
+                <rect x="764" y="359" width="54" height="123" rx="4" fill="#5FC48A" />
+                <text x="791" y="349" fill="#5FC48A" font-family="JetBrains Mono, monospace" font-size="10.5" font-weight="500" text-anchor="middle">77.58%</text>
+                <text x="791" y="500" fill="#F5F2EB" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">v5 2-GPU</text>
+              </svg>
+            </div>
             <figcaption><strong>Figure 2:</strong> v5 Undeniable Empirical Proof on Kaggle NVIDIA T4&times;2: (A) Monotonic <code>M</code>-stream speedup (<code>0.79&times;</code>) and energy gain (<code>1.28&times;</code>) at <code>D = 768</code>; (B) Exact <code>O(L/K)</code> VRAM scaling plus <code>3.45&times;</code> CF-2 counterfactual rebound; (C) <code>2.47&times;</code> Zero-Bubble T4&times;2 speedup (CF-3); (D) Unified ~1.26M parameter accuracy and 1-GPU vs. 2-GPU async equivalence.</figcaption>
           </figure>
 
@@ -271,18 +355,20 @@ const footerLinks = [
           </p>
 
           <p class="paper-table-caption"><strong>Table 3:</strong> Parameter-matched unified multi-prediction proof on <code>AffCIFAR-10 v2</code> (30 epochs, Kaggle T4&times;2).</p>
-          <table>
-            <thead><tr><th>Model Arm (30 Epochs)</th><th>Params</th><th>Class Acc</th><th>Pose R<sup>2</sup></th><th>Ang MAE</th><th>CKA</th><th>VRAM</th></tr></thead>
-            <tbody>
-              <tr><td><code>Hom_GlobalBP_Dense</code></td><td><code>1.31M</code></td><td><strong><code>82.07%</code></strong></td><td><code>+0.318</code></td><td><code>16.2&deg;</code></td><td><code>1.000</code></td><td><code>373.5 MB</code></td></tr>
-              <tr><td><code>SPRINT_v5_Unified_1GPU</code></td><td><code>1.26M</code></td><td><code>77.19%</code></td><td><code>+0.314</code></td><td><code>16.0&deg;</code></td><td><code>0.114</code></td><td><code>337.5 MB</code></td></tr>
-              <tr><td><code>CF4_SPRINT_v5_NoMAN</code></td><td><code>1.26M</code></td><td><code>77.08%</code></td><td><code>+0.308</code></td><td><code>15.9&deg;</code></td><td><code>0.055</code></td><td><code>296.7 MB</code></td></tr>
-              <tr><td><strong><code>SPRINT_v5_Unified_2GPU_Async</code></strong></td><td><strong><code>1.26M</code></strong></td><td><strong><code>77.58%</code></strong></td><td><strong><code>+0.325</code></strong></td><td><strong><code>15.3&deg;</code></strong></td><td><strong><code>0.057</code></strong></td><td><code>2-GPU</code></td></tr>
-            </tbody>
-          </table>
+          <div class="paper-table-wrap">
+            <table>
+              <thead><tr><th>Model Arm (30 Epochs)</th><th>Params</th><th>Class Acc</th><th>Pose R<sup>2</sup></th><th>Ang MAE</th><th>CKA</th><th>VRAM</th></tr></thead>
+              <tbody>
+                <tr><td><code>Hom_GlobalBP_Dense</code></td><td><code>1.31M</code></td><td><strong><code>82.07%</code></strong></td><td><code>+0.318</code></td><td><code>16.2&deg;</code></td><td><code>1.000</code></td><td><code>373.5 MB</code></td></tr>
+                <tr><td><code>SPRINT_v5_Unified_1GPU</code></td><td><code>1.26M</code></td><td><code>77.19%</code></td><td><code>+0.314</code></td><td><code>16.0&deg;</code></td><td><code>0.114</code></td><td><code>337.5 MB</code></td></tr>
+                <tr><td><code>CF4_SPRINT_v5_NoMAN</code></td><td><code>1.26M</code></td><td><code>77.08%</code></td><td><code>+0.308</code></td><td><code>15.9&deg;</code></td><td><code>0.055</code></td><td><code>296.7 MB</code></td></tr>
+                <tr class="paper-row--highlight"><td><strong><code>SPRINT_v5_Unified_2GPU_Async</code></strong></td><td><strong><code>1.26M</code></strong></td><td><strong><code>77.58%</code></strong></td><td><strong><code>+0.325</code></strong></td><td><strong><code>15.3&deg;</code></strong></td><td><strong><code>0.057</code></strong></td><td><code>2-GPU</code></td></tr>
+              </tbody>
+            </table>
+          </div>
 
           <p>
-            Crucially, live 2-GPU asynchronous execution suffers <strong>zero accuracy loss</strong> (<code>77.58%</code> vs. <code>77.19%</code> on 1 GPU, avoiding PipeDream weight staleness <a href="#ref7">[7]</a>), <strong>surpasses <code>Hom_GlobalBP_Dense</code> on variant pose regression</strong> (<code>+0.325</code> vs. <code>+0.318</code> R<sup>2</sup>; <code>15.3&deg;</code> vs. <code>16.2&deg;</code> MAE), maintains 94.3% stream orthogonality (<code>CKA = 0.057</code>), and narrows the semantic classification gap from &minus;13.5% (v3) to &minus;4.49%. Complementary v4 GPU Kernel Lab benchmarks on NVIDIA T4 across <code>d &isin; &#123;64, 128, 256&#125;</code> further confirm <code>0.73&times;</code> wall-clock latency and <code>1.39&times;</code> samples/Joule at <code>d = 256</code>, along with +32% throughput and +31.5% energy advantage over gradient checkpointing across <code>B &isin; [64, 1024]</code>.
+            Crucially, live 2-GPU asynchronous execution suffers <strong>zero accuracy loss</strong> (<code>77.58%</code> vs. <code>77.19%</code> on 1 GPU, avoiding PipeDream weight staleness <a class="paper-cite" href="#ref7">[7]</a>), <strong>surpasses <code>Hom_GlobalBP_Dense</code> on variant pose regression</strong> (<code>+0.325</code> vs. <code>+0.318</code> R<sup>2</sup>; <code>15.3&deg;</code> vs. <code>16.2&deg;</code> MAE), maintains 94.3% stream orthogonality (<code>CKA = 0.057</code>), and narrows the semantic classification gap from &minus;13.5% (v3) to &minus;4.49%. Complementary v4 GPU Kernel Lab benchmarks on NVIDIA T4 across <code>d &isin; &#123;64, 128, 256&#125;</code> further confirm <code>0.73&times;</code> wall-clock latency and <code>1.39&times;</code> samples/Joule at <code>d = 256</code>, along with +32% throughput and +31.5% energy advantage over gradient checkpointing across <code>B &isin; [64, 1024]</code>.
           </p>
 
           <h2 id="sec5">5. Conclusion</h2>
@@ -290,27 +376,46 @@ const footerLinks = [
             <strong>Core Verdict:</strong> Hardware incompatibility is not an intrinsic property of local plasticity or parallel streams. When aligned to Tensor Core batched GEMMs, whole-step CUDA Graphs, L2 cache locality, and zero-bubble multi-GPU pipelining, <strong>SPRINT-LP</strong> outperforms Global Backpropagation in single-GPU activation memory (<code>&minus;79%</code>), single-GPU identical-parameter speed (<code>&minus;11.5%</code>), Iso-Width speed (<code>0.73&ndash;0.79&times;</code>) and energy (<code>+28%&ndash;39%</code> samples/Joule), and 2-GPU scaling (<code>2.47&times;</code>) while preserving zero accuracy loss under asynchronous multi-GPU execution.
           </blockquote>
 
+          <div class="paper-bibtex">
+            <div class="paper-bibtex__bar">
+              <span>Cite This Preprint (BibTeX)</span>
+              <button type="button" class="paper-bibtex__copy" data-copy-bibtex="sprint-lp-bibtex">
+                <span data-copy-label>Copy</span>
+              </button>
+            </div>
+            <pre id="sprint-lp-bibtex">@article&#123;enemites2026sprintlp,
+  title   = &#123;SPRINT-LP: GPU-Native Local Plasticity with Hard-Isolated Parallel Streams&#125;,
+  author  = &#123;Nafis, M.D. and Enemites Research Team&#125;,
+  journal = &#123;Enemites Labs Technical Preprint&#125;,
+  year    = &#123;2026&#125;,
+  month   = &#123;November&#125;,
+  url     = &#123;https://research.enemites.com/papers/sprint-lp/&#125;
+&#125;</pre>
+          </div>
+
           <h2 id="sec6">6. References</h2>
-          <table>
-            <thead><tr><th>#</th><th>Full Citation</th><th>Venue</th></tr></thead>
-            <tbody>
-              <tr id="ref1"><td>1</td><td>T. Yu et al., <em>Gradient Surgery for Multi-Task Learning (PCGrad)</em>, NeurIPS, 2020. <a href="https://arxiv.org/html/2001.06782v4" target="_blank" rel="noopener noreferrer">arXiv:2001.06782</a></td><td>NeurIPS 2020</td></tr>
-              <tr id="ref2"><td>2</td><td>F. Binkofski and L. J. Buxbaum, <em>Two Action Systems in the Human Brain</em>, Brain and Language, 2013. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4311762/" target="_blank" rel="noopener noreferrer">PMC4311762</a></td><td>Brain &amp; Language</td></tr>
-              <tr id="ref3"><td>3</td><td>S. Bakhtiari et al., <em>The Functional Specialization of Visual Cortex Emerges from Training Parallel Pathways with Self-Supervised Predictive Learning</em>, NeurIPS, 2021. <a href="https://proceedings.neurips.cc/paper/2021/file/d384dec9f5f7a64a36b5c8f03b8a6d92-Paper.pdf" target="_blank" rel="noopener noreferrer">NeurIPS 2021</a></td><td>NeurIPS 2021</td></tr>
-              <tr id="ref4"><td>4</td><td>Y. Wang et al., <em>Revisiting Locally Supervised Learning: An Alternative to End-to-end Training (InfoPro)</em>, ICLR, 2021. <a href="https://arxiv.org/abs/2101.10832" target="_blank" rel="noopener noreferrer">arXiv:2101.10832</a></td><td>ICLR 2021</td></tr>
-              <tr id="ref5"><td>5</td><td>E. Belilovsky, M. Eickenberg, and E. Oyallon, <em>Decoupled Greedy Learning of CNNs (DGL)</em>, ICML, 2020. <a href="https://proceedings.mlr.press/v119/belilovsky20a/belilovsky20a.pdf" target="_blank" rel="noopener noreferrer">PMLR v119</a></td><td>ICML 2020</td></tr>
-              <tr id="ref6"><td>6</td><td>Y. Huang et al., <em>GPipe: Efficient Training of Giant Neural Networks using Pipeline Parallelism</em>, NeurIPS, 2019. <a href="https://arxiv.org/pdf/1811.06965" target="_blank" rel="noopener noreferrer">arXiv:1811.06965</a></td><td>NeurIPS 2019</td></tr>
-              <tr id="ref7"><td>7</td><td>D. Narayanan et al., <em>PipeDream: Generalized Pipeline Parallelism for DNN Training</em>, SOSP, 2019. <a href="https://people.eecs.berkeley.edu/~matei/papers/2019/sosp_pipedream.pdf" target="_blank" rel="noopener noreferrer">SOSP 2019</a></td><td>SOSP 2019</td></tr>
-              <tr id="ref8"><td>8</td><td>J. Su et al., <em>MAN++: Scaling Momentum Auxiliary Network for Supervised Local Learning</em>, arXiv, 2025/2026. <a href="https://arxiv.org/html/2507.16279v2" target="_blank" rel="noopener noreferrer">arXiv:2507.16279</a></td><td>arXiv</td></tr>
-              <tr id="ref9"><td>9</td><td><em>Shared-Output Local Learning</em>, arXiv, 2026. <a href="https://arxiv.org/html/2609.35440v1" target="_blank" rel="noopener noreferrer">arXiv:2609.35440</a></td><td>arXiv</td></tr>
-              <tr id="ref10"><td>10</td><td>NVIDIA Corporation, <em>Tesla T4 Tensor Core GPU Datasheet</em>, 2019. <a href="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/tesla-t4/t4-tensor-core-datasheet-951643.pdf" target="_blank" rel="noopener noreferrer">NVIDIA T4 Datasheet</a></td><td>Datasheet</td></tr>
-              <tr id="ref11"><td>11</td><td>NVIDIA Corporation, <em>cuBLAS Library Documentation</em>, 2025. <a href="https://docs.nvidia.com/cuda/cublas/index.html" target="_blank" rel="noopener noreferrer">cuBLAS Docs</a></td><td>Docs</td></tr>
-              <tr id="ref12"><td>12</td><td>NVIDIA Corporation, <em>NVML API Reference: Device Queries</em>, 2025. <a href="https://docs.nvidia.com/deploy/nvml-api/latest/api/group__nvmlDeviceQueries.html" target="_blank" rel="noopener noreferrer">NVML Docs</a></td><td>Docs</td></tr>
-              <tr id="ref13"><td>13</td><td>PyTorch Contributors, <em>torch.bmm Documentation</em>, 2025. <a href="https://docs.pytorch.org/docs/stable/generated/torch.bmm.html" target="_blank" rel="noopener noreferrer">PyTorch bmm</a></td><td>Docs</td></tr>
-              <tr id="ref14"><td>14</td><td>PyTorch Contributors, <em>torch.cuda.CUDAGraph Documentation</em>, 2025. <a href="https://docs.pytorch.org/docs/stable/generated/torch.cuda.CUDAGraph.html" target="_blank" rel="noopener noreferrer">PyTorch CUDAGraph</a></td><td>Docs</td></tr>
-              <tr id="ref15"><td>15</td><td>PyTorch Contributors, <em>torch.optim.AdamW Documentation</em>, 2025. <a href="https://docs.pytorch.org/docs/stable/generated/torch.optim.AdamW.html" target="_blank" rel="noopener noreferrer">PyTorch AdamW</a></td><td>Docs</td></tr>
-            </tbody>
-          </table>
+          <div class="paper-table-wrap">
+            <table>
+              <thead><tr><th>#</th><th>Full Citation</th><th>Venue</th></tr></thead>
+              <tbody>
+                <tr id="ref1"><td>1</td><td>T. Yu et al., <em>Gradient Surgery for Multi-Task Learning (PCGrad)</em>, NeurIPS, 2020. <a href="https://arxiv.org/html/2001.06782v4" target="_blank" rel="noopener noreferrer">arXiv:2001.06782</a></td><td>NeurIPS 2020</td></tr>
+                <tr id="ref2"><td>2</td><td>F. Binkofski and L. J. Buxbaum, <em>Two Action Systems in the Human Brain</em>, Brain and Language, 2013. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4311762/" target="_blank" rel="noopener noreferrer">PMC4311762</a></td><td>Brain &amp; Language</td></tr>
+                <tr id="ref3"><td>3</td><td>S. Bakhtiari et al., <em>The Functional Specialization of Visual Cortex Emerges from Training Parallel Pathways with Self-Supervised Predictive Learning</em>, NeurIPS, 2021. <a href="https://proceedings.neurips.cc/paper/2021/file/d384dec9f5f7a64a36b5c8f03b8a6d92-Paper.pdf" target="_blank" rel="noopener noreferrer">NeurIPS 2021</a></td><td>NeurIPS 2021</td></tr>
+                <tr id="ref4"><td>4</td><td>Y. Wang et al., <em>Revisiting Locally Supervised Learning: An Alternative to End-to-end Training (InfoPro)</em>, ICLR, 2021. <a href="https://arxiv.org/abs/2101.10832" target="_blank" rel="noopener noreferrer">arXiv:2101.10832</a></td><td>ICLR 2021</td></tr>
+                <tr id="ref5"><td>5</td><td>E. Belilovsky, M. Eickenberg, and E. Oyallon, <em>Decoupled Greedy Learning of CNNs (DGL)</em>, ICML, 2020. <a href="https://proceedings.mlr.press/v119/belilovsky20a/belilovsky20a.pdf" target="_blank" rel="noopener noreferrer">PMLR v119</a></td><td>ICML 2020</td></tr>
+                <tr id="ref6"><td>6</td><td>Y. Huang et al., <em>GPipe: Efficient Training of Giant Neural Networks using Pipeline Parallelism</em>, NeurIPS, 2019. <a href="https://arxiv.org/pdf/1811.06965" target="_blank" rel="noopener noreferrer">arXiv:1811.06965</a></td><td>NeurIPS 2019</td></tr>
+                <tr id="ref7"><td>7</td><td>D. Narayanan et al., <em>PipeDream: Generalized Pipeline Parallelism for DNN Training</em>, SOSP, 2019. <a href="https://people.eecs.berkeley.edu/~matei/papers/2019/sosp_pipedream.pdf" target="_blank" rel="noopener noreferrer">SOSP 2019</a></td><td>SOSP 2019</td></tr>
+                <tr id="ref8"><td>8</td><td>J. Su et al., <em>MAN++: Scaling Momentum Auxiliary Network for Supervised Local Learning</em>, arXiv, 2025/2026. <a href="https://arxiv.org/html/2507.16279v2" target="_blank" rel="noopener noreferrer">arXiv:2507.16279</a></td><td>arXiv</td></tr>
+                <tr id="ref9"><td>9</td><td><em>Shared-Output Local Learning</em>, arXiv, 2026. <a href="https://arxiv.org/html/2609.35440v1" target="_blank" rel="noopener noreferrer">arXiv:2609.35440</a></td><td>arXiv</td></tr>
+                <tr id="ref10"><td>10</td><td>NVIDIA Corporation, <em>Tesla T4 Tensor Core GPU Datasheet</em>, 2019. <a href="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/tesla-t4/t4-tensor-core-datasheet-951643.pdf" target="_blank" rel="noopener noreferrer">NVIDIA T4 Datasheet</a></td><td>Datasheet</td></tr>
+                <tr id="ref11"><td>11</td><td>NVIDIA Corporation, <em>cuBLAS Library Documentation</em>, 2025. <a href="https://docs.nvidia.com/cuda/cublas/index.html" target="_blank" rel="noopener noreferrer">cuBLAS Docs</a></td><td>Docs</td></tr>
+                <tr id="ref12"><td>12</td><td>NVIDIA Corporation, <em>NVML API Reference: Device Queries</em>, 2025. <a href="https://docs.nvidia.com/deploy/nvml-api/latest/api/group__nvmlDeviceQueries.html" target="_blank" rel="noopener noreferrer">NVML Docs</a></td><td>Docs</td></tr>
+                <tr id="ref13"><td>13</td><td>PyTorch Contributors, <em>torch.bmm Documentation</em>, 2025. <a href="https://docs.pytorch.org/docs/stable/generated/torch.bmm.html" target="_blank" rel="noopener noreferrer">PyTorch bmm</a></td><td>Docs</td></tr>
+                <tr id="ref14"><td>14</td><td>PyTorch Contributors, <em>torch.cuda.CUDAGraph Documentation</em>, 2025. <a href="https://docs.pytorch.org/docs/stable/generated/torch.cuda.CUDAGraph.html" target="_blank" rel="noopener noreferrer">PyTorch CUDAGraph</a></td><td>Docs</td></tr>
+                <tr id="ref15"><td>15</td><td>PyTorch Contributors, <em>torch.optim.AdamW Documentation</em>, 2025. <a href="https://docs.pytorch.org/docs/stable/generated/torch.optim.AdamW.html" target="_blank" rel="noopener noreferrer">PyTorch AdamW</a></td><td>Docs</td></tr>
+              </tbody>
+            </table>
+          </div>
 
           <PaperComments paperSlug="sprint-lp" />
         </article>
@@ -321,56 +426,3 @@ const footerLinks = [
     import '../../scripts/referenceLinks';
   </script>
 </BaseLayout>
-
-<style>
-  .paper-abstract {
-    padding: var(--space-lg);
-    margin-bottom: var(--space-xl);
-    border-left: 3px solid var(--brand-clay);
-    background: var(--brand-panel);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  }
-  .paper-abstract p:last-child {
-    margin-bottom: 0;
-  }
-  .paper-theorem {
-    padding: var(--space-lg);
-    margin-bottom: var(--space-lg);
-    background: var(--brand-panel);
-    border: 1px solid var(--brand-line);
-    border-radius: var(--radius-sm);
-  }
-  .paper-theorem p:last-child {
-    margin-bottom: 0;
-  }
-  .paper-equation {
-    margin: var(--space-md) 0;
-    padding: var(--space-md);
-    overflow-x: auto;
-    background: var(--brand-dark);
-    color: var(--brand-paper);
-    border-radius: var(--radius-sm);
-    font-family: var(--font-mono);
-    font-size: var(--fs-small);
-    text-align: center;
-  }
-  .paper-table-caption {
-    margin-bottom: var(--space-sm);
-    font-size: var(--fs-small);
-    color: var(--brand-muted);
-  }
-  .paper-figure {
-    margin: var(--space-2xl) 0;
-  }
-  .paper-figure svg {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-  .paper-figure figcaption {
-    margin-top: var(--space-sm);
-    color: var(--brand-muted);
-    font-size: var(--fs-small);
-    line-height: 1.6;
-  }
-</style>
