@@ -85,7 +85,7 @@ export const researchPapers: ResearchPaper[] = [
     title: 'SPRINT-LP: GPU-Native Local Plasticity with Hard-Isolated Parallel Streams',
     author: 'Enemites Research Team · M.D. Nafis',
     abstract:
-      'Formally proved in pure Lean 4 and empirically validated on Kaggle NVIDIA T4x2 silicon across five falsification iterations (v1-v5), SPRINT-LP refutes the assumption that hard-isolated parallel streams and local synaptic plasticity are incompatible with modern GPUs. Uniting cuBLAS batched GEMMs (torch.baddbmm), whole-step CUDA Graphs, Shared V1/V2 Stem + Late Bifurcation, and Deep-MAN++, it beats Global BP on single-GPU activation memory (-79.0%), single-GPU identical-parameter speed (-11.5%), Iso-Width energy efficiency (+28-39%), and 2-GPU scaling (2.47x) with zero accuracy degradation under live async execution.',
+      'Formal Lean 4 proofs and Kaggle NVIDIA T4x2 empirical validation refuting GPU incompatibility of local plasticity and hard-isolated parallel streams.',
     tags: ['Local Plasticity', 'Lean 4', 'CUDA Graphs', 'Multi-GPU', 'Parallel Streams'],
     metaIcon: 'PROOF',
     metaText: '15 references · Lean 4 + T4x2',
